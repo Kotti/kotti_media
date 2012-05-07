@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      metal:use-macro="api.macro('kotti:templates/view/master.pt')">
+
+  <more metal:fill-slot="head-more">
+    <script src="mediaelement-and-player.min.js"></script>
+    <link rel="stylesheet" href="mediaelementplayer.css" />
+  </more>
+
+  <article metal:fill-slot="content" class="document-view content">
+    <h1>${context.title}</h1>
+    <p class="description">
+      ${context.description}
+    </p>
+    <div class="body">
+      <p tal:replace="structure context.body"></p>
+      <video poster="poster.jpg" controls="controls" preload="none">
+          <source type="video/mp4" src="video.mp4" />
+          <source type="video/webm" src="video.webm" />
+          <source type="video/ogg" src="video.ogv" />
+          <track kind="subtitles" src="subtitles.srt" srclang="en" />
+          <track kind="chapters" src="chapters.srt" srclang="en" />
+          <object width="320" height="240" type="application/x-shockwave-flash" data="flashmediaelement.swf">
+              <param name="movie" value="flashmediaelement.swf" />
+              <param name="flashvars" value="controls=true&file=video.mp4" />
+              <img src="video.jpg" width="320" height="240" title="No video playback capabilities" />
+          </object>
+      </video>
+    </div>
+  </article>
+  <script>
+    $('video').mediaelementplayer(/* Options */);
+  </script>
+</html>
