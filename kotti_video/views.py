@@ -4,6 +4,7 @@ from kotti.util import _
 from kotti.views.edit import DocumentSchema, make_generic_add, make_generic_edit
 from kotti.views.file import AddFileFormView, EditFileFormView
 from kotti_video.resources import Video, Mp4File, WebmFile, OggFile, SubtitlesFile, ChaptersFile
+from pyramid.url import resource_url
 from pyramid.view import view_config
 
 
@@ -22,7 +23,17 @@ class VideoView(BaseView):
                  permission='view',
                  renderer='templates/video-view.pt')
     def view(self):
-        return {}
+
+        result = {}
+        for t in ("mp4", "webm", "ogg", "subtitles", "chapters", "poster"):
+            key = "%s_url" % t
+            file = getattr(self.context, "%s_file" % t)
+            if file is None:
+                result[key] = None
+            else:
+                result[key] = resource_url(file, self.request, "@@inline-view")
+
+        return result
 
 
 class AddMp4FileFormView(AddFileFormView):

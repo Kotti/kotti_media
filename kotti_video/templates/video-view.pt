@@ -3,8 +3,8 @@
       metal:use-macro="api.macro('kotti:templates/view/master.pt')">
 
   <more metal:fill-slot="head-more">
-    <script src="mediaelement-and-player.min.js"></script>
-    <link rel="stylesheet" href="mediaelementplayer.css" />
+    <script src="${request.static_url('kotti_video:static/mediaelement-and-player.min.js')}"></script>
+    <link rel="stylesheet" href="${request.static_url('kotti_video:static/mediaelementplayer.css')}" />
   </more>
 
   <article metal:fill-slot="content" class="document-view content">
@@ -14,17 +14,17 @@
     </p>
     <div class="body">
       <p tal:replace="structure context.body"></p>
-      <video poster="poster.jpg" controls="controls" preload="none">
-          <source type="video/mp4" src="video.mp4" />
-          <source type="video/webm" src="video.webm" />
-          <source type="video/ogg" src="video.ogv" />
-          <track kind="subtitles" src="subtitles.srt" srclang="en" />
-          <track kind="chapters" src="chapters.srt" srclang="en" />
-          <object width="320" height="240" type="application/x-shockwave-flash" data="flashmediaelement.swf">
-              <param name="movie" value="flashmediaelement.swf" />
-              <param name="flashvars" value="controls=true&file=video.mp4" />
-              <img src="video.jpg" width="320" height="240" title="No video playback capabilities" />
-          </object>
+      <video poster="${poster_url}" controls="controls" preload="none">
+        <source tal:condition="mp4_url" type="video/mp4" src="${mp4_url}" />
+        <source tal:condition="webm_url" type="video/webm" src="${webm_url}" />
+        <source tal:condition="ogg_url" type="video/ogg" src="${ogg_url}" />
+        <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
+        <track tal:condition="chapters_url" kind="chapters" src="${chapters_url}" srclang="en" />
+        <object tal:condition="mp4_url" width="320" height="240" type="application/x-shockwave-flash" data="${request.static_url('kotti_video:static/flashmediaelement.swf')}">
+          <param name="movie" value="${request.static_url('kotti_video:static/flashmediaelement.swf')}" />
+          <param name="flashvars" value="controls=true&file=${mp4_url}" />
+          <img src="${poster_url}" width="320" height="240" title="No video playback capabilities" />
+        </object>
       </video>
     </div>
   </article>

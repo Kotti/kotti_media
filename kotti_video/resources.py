@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from kotti import DBSession
 from kotti.resources import Document, File, TypeInfo
 from kotti.security import view_permitted
 from kotti.util import _, ViewLink
+from kotti_image_gallery.resources import Image
 from pprint import pformat
 from sqlalchemy import Column, ForeignKey, Integer
 
@@ -92,3 +94,69 @@ class Video(Document):
     type_info = Document.type_info.copy(name=u"Video",
                                         title=_(u"Video"),
                                         addable_to=[u"Document"])
+
+    @property
+    def mp4_file(self):
+
+        session = DBSession()
+        query = session.query(Mp4File).filter(Mp4File.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def webm_file(self):
+
+        session = DBSession()
+        query = session.query(WebmFile).filter(WebmFile.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def ogg_file(self):
+
+        session = DBSession()
+        query = session.query(OggFile).filter(OggFile.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def subtitles_file(self):
+
+        session = DBSession()
+        query = session.query(SubtitlesFile).filter(SubtitlesFile.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def chapters_file(self):
+
+        session = DBSession()
+        query = session.query(ChaptersFile).filter(ChaptersFile.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def poster_file(self):
+
+        session = DBSession()
+        query = session.query(Image).filter(Image.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
