@@ -50,6 +50,9 @@ class Mp4File(File):
                                                   title=_(u"Video file (*.mp4)"),
                                                   add_view="add_mp4file")
 
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(Mp4File, self).__init__(data=data, filename="video.mp4", mimetype="video/mp4", size=size, **kwargs)
+
 
 class WebmFile(File):
 
@@ -59,6 +62,9 @@ class WebmFile(File):
                                                   title=_(u"Video file (*.webm)"),
                                                   add_view="add_webmfile")
 
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(WebmFile, self).__init__(data=data, filename="video.webm", mimetype="video/webm", size=size, **kwargs)
+
 
 class OggFile(File):
 
@@ -67,6 +73,9 @@ class OggFile(File):
     type_info = generic_video_file_type_info.copy(name=u"OggFile",
                                                   title=_(u"Video file (*.ogg)"),
                                                   add_view="add_oggfile")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(OggFile, self).__init__(data=data, filename="video.ogv", mimetype="video/ogg", size=size, **kwargs)
 
 
 class SubtitlesFile(File):
@@ -93,7 +102,8 @@ class Video(Document):
 
     type_info = Document.type_info.copy(name=u"Video",
                                         title=_(u"Video"),
-                                        addable_to=[u"Document"])
+                                        addable_to=[u"Document"],
+                                        add_view="add_video", )
 
     @property
     def mp4_file(self):
