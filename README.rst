@@ -4,9 +4,11 @@ kotti_video
 
 This is an extension to the Kotti CMS that allows you to add videos to your Kotti site.
 
-It uses `MediaElementJS`_ for the video view.
-
 `Find out more about Kotti`_
+
+``kotti_video`` uses `MediaElementJS`_ for the video view and thus supports native HTML5 video playback on all platforms that support this.
+Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal on
+For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every video can be played on every platform if all supported formats are uploaded.
 
 
 Setup
@@ -24,7 +26,7 @@ With this, you'll be able to add gallery and image items in your site.
 Work in progress
 ================
 
-``kotti_video`` is considered alpha software, not suitable for use in production environments.
+``kotti_video`` is considered alpha software, not yet suitable for use in production environments.
 The current state of the project is in no way feature complete nor API stable.
 If you really want to use it in your project(s), make sure to pin the exact version in your requirements.
 Not doing so will likely break your project when future releases become available.
@@ -44,7 +46,7 @@ This follows the highly recommended `A successful Git branching model`_ pattern,
 Testing
 -------
 
-``kotti_video`` has 100% test coverage.
+``kotti_video`` will have 100% test coverage very soon.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
 Running the test suite is as easy as running ``py.test`` from the source directory.
 
