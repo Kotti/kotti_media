@@ -7,7 +7,7 @@ This is an extension to the Kotti CMS that allows you to add videos to your Kott
 `Find out more about Kotti`_
 
 ``kotti_video`` uses `MediaElementJS`_ for the video view and thus supports native HTML5 video playback on all platforms that support this.
-Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal on
+Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal.
 For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every video can be played on every platform if all supported formats are uploaded.
 
 
