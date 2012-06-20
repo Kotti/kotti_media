@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.2
+---
+
+- Release for Kotti >= 0.7dev
+
 0.1
 ---
 

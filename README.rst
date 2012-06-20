@@ -10,6 +10,12 @@ This is an extension to the Kotti CMS that allows you to add videos to your Kott
 Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal.
 For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every video can be played on every platform if all supported formats are uploaded.
 
+Compatibility
+=============
+
+For Kotti >= 0.7 use the latest release of ``kotti_video``.
+
+For Kotti < 0.7 use the ``kotti_video`` < 0.2.
 
 Setup
 =====

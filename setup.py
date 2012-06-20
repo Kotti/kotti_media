@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1'
+version = '0.2dev'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -41,6 +41,6 @@ setup(name='kotti_video',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=False,
-      install_requires=["Kotti>=0.6.3dev", ],
+      install_requires=["Kotti>=0.7dev", ],
       tests_require=tests_require,
       extras_require={'testing': tests_require, }, )
