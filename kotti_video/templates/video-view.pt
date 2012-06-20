@@ -9,30 +9,36 @@
 
   <article metal:fill-slot="content" class="document-view content">
     <h1>${context.title}</h1>
-    <p class="description">
-      ${context.description}
-    </p>
+    <div class="row">
+      <div class="span6">
+        <p class="description">
+          ${context.description}
+        </p>
+        <p tal:replace="structure context.body"></p>
+      </div>
+      <div class="span6">
+        <video poster="${poster_url}" controls="controls">
+          <!-- MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7 -->
+          <source tal:condition="mp4_url" type="video/mp4" src="${mp4_url}" />
+          <!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
+          <source tal:condition="webm_url" type="video/webm" src="${webm_url}" />
+          <!-- Ogg/Vorbis for older Firefox and Opera versions -->
+          <source tal:condition="ogg_url" type="video/ogg" src="${ogg_url}" />
+          <!-- Optional: Add subtitles for each language -->
+          <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
+          <!-- Optional: Add chapters -->
+          <track tal:condition="chapters_url" kind="chapters" src="${chapters_url}" srclang="en" />
+          <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+          <object tal:condition="mp4_url" width="320" height="240" type="application/x-shockwave-flash" data="${request.static_url('kotti_video:static/flashmediaelement.swf')}">
+            <param name="movie" value="${request.static_url('kotti_video:static/flashmediaelement.swf')}" />
+            <param name="flashvars" value="controls=true&file=${mp4_url}" />
+            <!-- Image as a last resort -->
+            <img src="${poster_url}" width="320" height="240" title="No video playback capabilities" />
+          </object>
+        </video>
+      </div>
+    </div>
     <div class="body">
-      <p tal:replace="structure context.body"></p>
-      <video poster="${poster_url}" controls="controls">
-        <!-- MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7 -->
-        <source tal:condition="mp4_url" type="video/mp4" src="${mp4_url}" />
-        <!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
-        <source tal:condition="webm_url" type="video/webm" src="${webm_url}" />
-        <!-- Ogg/Vorbis for older Firefox and Opera versions -->
-        <source tal:condition="ogg_url" type="video/ogg" src="${ogg_url}" />
-        <!-- Optional: Add subtitles for each language -->
-        <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
-        <!-- Optional: Add chapters -->
-        <track tal:condition="chapters_url" kind="chapters" src="${chapters_url}" srclang="en" />
-        <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
-        <object tal:condition="mp4_url" width="320" height="240" type="application/x-shockwave-flash" data="${request.static_url('kotti_video:static/flashmediaelement.swf')}">
-          <param name="movie" value="${request.static_url('kotti_video:static/flashmediaelement.swf')}" />
-          <param name="flashvars" value="controls=true&file=${mp4_url}" />
-          <!-- Image as a last resort -->
-          <img src="${poster_url}" width="320" height="240" title="No video playback capabilities" />
-        </object>
-      </video>
     </div>
     <script>
       $(function(){
