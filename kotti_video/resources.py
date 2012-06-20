@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from kotti import DBSession
-from kotti.resources import Document, File, TypeInfo
+from kotti.resources import Document
+from kotti.resources import File
+from kotti.resources import TypeInfo
 from kotti.security import view_permitted
-from kotti.util import _, ViewLink
-from kotti_image_gallery.resources import Image
+from kotti.util import _
+from kotti.util import ViewLink
+from kotti.resources import Image
 from pprint import pformat
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
 
 
 class VideoFileTypeInfo(TypeInfo):
