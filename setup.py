@@ -21,6 +21,9 @@ except IOError:
 development_requires = ['minify', ]
 
 tests_require = ["pytest",
+                'pytest-cov',
+                'pytest-pep8',
+                'pytest-xdist',
                  "WebTest",
                  "wsgi_intercept",
                  "zope.testbrowser", ]
