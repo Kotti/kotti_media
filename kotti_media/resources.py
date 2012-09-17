@@ -175,3 +175,80 @@ class Video(Document):
             return query.first()
 
         return None
+
+
+class AudioFileTypeInfo(TypeInfo):
+
+    def addable(self, context, request):
+        """Return True if
+            - the type described in 'self' may be added  *and*
+            - no other child of the same type has already be added
+           to 'context'."""
+
+        if view_permitted(context, request, self.add_view):
+            addable = context.type_info.name in self.addable_to
+            child_type_already_added = self in [c.type_info for c in context.children]
+            return addable and not child_type_already_added
+        else:
+            return False
+
+    def copy(self, **kwargs):
+
+        d = self.__dict__.copy()
+        d.update(kwargs)
+        return AudioFileTypeInfo(**d)
+
+    def __repr__(self):
+
+        return pformat(self.__dict__)
+
+
+generic_audio_file_type_info = AudioFileTypeInfo(name=u"AudioFile",
+                                                 title=_(u"Audio file"),
+                                                 addable_to=[u"Audio", ],
+                                                 add_view=None,
+                                                 edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
+
+
+class Mp3File(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_audio_file_type_info.copy(name=u"Mp3File",
+                                                  title=_(u"Audio file (*.mp3)"),
+                                                  add_view="add_mp3file")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(Mp3File, self).__init__(data=data, filename="audio.mp3", mimetype="audio/mp3", size=size, **kwargs)
+
+
+class Audio(Document):
+
+    id = Column(Integer(), ForeignKey('documents.id'), primary_key=True)
+
+    type_info = Document.type_info.copy(name=u"Audio",
+                                        title=_(u"Audio"),
+                                        addable_to=[u"Document"],
+                                        add_view="add_audio", )
+
+    @property
+    def mp3_file(self):
+
+        session = DBSession()
+        query = session.query(Mp3File).filter(Mp3File.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+    @property
+    def poster_file(self):
+
+        session = DBSession()
+        query = session.query(Image).filter(Image.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
