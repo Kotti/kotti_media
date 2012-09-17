@@ -52,6 +52,8 @@ This follows the highly recommended `A successful Git branching model`_ pattern,
 Testing
 -------
 
+[![Build Status](https://secure.travis-ci.org/disko/kotti_media.png)](http://travis-ci.org/disko/kotti_media)
+
 ``kotti_media`` will have 100% test coverage very soon.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
 Running the test suite is as easy as running ``py.test`` from the source directory.
