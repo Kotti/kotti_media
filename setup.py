@@ -18,6 +18,8 @@ try:
 except IOError:
     CHANGES = ""
 
+development_requires = ['minify', ]
+
 tests_require = ["pytest",
                  "WebTest",
                  "wsgi_intercept",
@@ -43,4 +45,5 @@ setup(name='kotti_media',
       zip_safe=False,
       install_requires=["Kotti>=0.7", ],
       tests_require=tests_require,
-      extras_require={'testing': tests_require, }, )
+      extras_require={'testing': tests_require,
+                      'development': development_requires, }, )
