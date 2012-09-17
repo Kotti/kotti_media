@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      metal:use-macro="api.macro('kotti:templates/view/master.pt')">
+
+  <more metal:fill-slot="head-more">
+    <script src="${request.static_url('kotti_media:static/mediaelement-and-player.min.js')}"></script>
+    <link rel="stylesheet" href="${request.static_url('kotti_media:static/mediaelementplayer.css')}" />
+  </more>
+
+  <article metal:fill-slot="content" class="document-view content">
+    <h1>${context.title}</h1>
+    <div class="row">
+      <div class="span6">
+        <p class="description">
+          ${context.description}
+        </p>
+        <p tal:replace="structure context.body"></p>
+      </div>
+      <div class="span6">
+        <audio poster="${poster_url}" controls="controls">
+          <!-- MP3 -->
+          <source tal:condition="mp3_url" type="audio/mp3" src="${mp3_url}" />
+        </audio>
+      </div>
+    </div>
+    <div class="body">
+    </div>
+    <script>
+      $(function(){
+        $('audio').mediaelementplayer({
+          // width of audio player
+          audioWidth: 400,
+          // height of audio player
+          audioHeight: 30,
+          // initial volume when the player starts
+          startVolume: 0.8,
+          // useful for <audio> player loops
+          loop: true,
+
+          // [TODO] From here down, not sure if pertains to audio:
+
+          // enables Flash and Silverlight to resize to content size
+          enableAutosize: true,
+          // the order of controls you want on the control bar (and other plugins below)
+          features: ['playpause','progress','current','duration','fullscreen'],
+          // Hide controls when playing and mouse is not over the audio
+          alwaysShowControls: false,
+          // force iPad's native controls
+          iPadUseNativeControls: true,
+          // force iPhone's native controls
+          iPhoneUseNativeControls: true,
+          // force Android's native controls
+          AndroidUseNativeControls: true,
+          // forces the hour marker (##:00:00)
+          alwaysShowHours: false,
+          // show framecount in timecode (##:00:00:00)
+          showTimecodeFrameCount: false,
+          // used when showTimecodeFrameCount is set to true
+          framesPerSecond: 25,
+          // turns keyboard support on and off for this instance
+          enableKeyboard: true,
+          // when this player starts, it will pause other players
+          pauseOtherPlayers: true,
+          // array of keyboard commands
+          keyActions: []
+        });
+      });
+    </script>
+  </article>
+</html>
