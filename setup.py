@@ -41,6 +41,6 @@ setup(name='kotti_media',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=False,
-      install_requires=["Kotti>=0.7dev", ],
+      install_requires=["Kotti>=0.7", ],
       tests_require=tests_require,
       extras_require={'testing': tests_require, }, )
