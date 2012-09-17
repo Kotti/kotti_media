@@ -53,6 +53,18 @@ generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
                                                  edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
 
 
+class WavFile(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_audio_file_type_info.copy(name=u"WavFile",
+                                                  title=_(u"Audio file (*.wav)"),
+                                                  add_view="add_wavfile")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(WavFile, self).__init__(data=data, filename="audio.wav", mimetype="audio/wav", size=size, **kwargs)
+
+
 class Mp3File(File):
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
@@ -147,6 +159,18 @@ class Audio(Document, MediaContentBase):
 
         session = DBSession()
         query = session.query(Mp3File).filter(Mp3File.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+
+    @property
+    def wav_file(self):
+
+        session = DBSession()
+        query = session.query(WavFile).filter(WavFile.parent_id == self.id)
 
         if query.count() > 0:
             return query.first()

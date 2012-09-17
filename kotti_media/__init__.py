@@ -14,4 +14,5 @@ def kotti_configure(settings):
     settings['kotti.available_types'] += ' kotti_media.resources.SubtitlesFile'
     settings['kotti.available_types'] += ' kotti_media.resources.ChaptersFile'
     settings['kotti.available_types'] += ' kotti_media.resources.Audio'
+    settings['kotti.available_types'] += ' kotti_media.resources.WavFile'
     settings['kotti.available_types'] += ' kotti_media.resources.Mp3File'

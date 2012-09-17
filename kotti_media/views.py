@@ -9,6 +9,7 @@ from kotti.views.file import AddFileFormView
 from kotti.views.file import EditFileFormView
 from kotti_media.resources import Audio
 from kotti_media.resources import ChaptersFile
+from kotti_media.resources import WavFile
 from kotti_media.resources import Mp3File
 from kotti_media.resources import Mp4File
 from kotti_media.resources import OggFile
@@ -37,7 +38,7 @@ class AudioView(BaseView):
                  renderer='templates/audio-view.pt')
     def view(self):
         result = {}
-        for t in ("mp3", "poster"):
+        for t in ("wav", "mp3", "poster"):
             key = "%s_url" % t
             file = getattr(self.context, "%s_file" % t)
             if file is None:
@@ -65,6 +66,12 @@ class VideoView(BaseView):
                 result[key] = resource_url(file, self.request, "@@attachment-view")
 
         return result
+
+
+class AddWavFileFormView(AddFileFormView):
+
+    item_type = _(u"WavFile")
+    item_class = WavFile
 
 
 class AddMp3FileFormView(AddFileFormView):
@@ -131,12 +138,17 @@ def includeme(config):
                     renderer='kotti:templates/edit/node.pt', )
 
     # File types edit
-    for file_type in (Mp3File, Mp4File, WebmFile, OggFile, SubtitlesFile, ChaptersFile):
+    for file_type in (WavFile, Mp3File, Mp4File, WebmFile, OggFile, SubtitlesFile, ChaptersFile):
         config.add_view(EditFileFormView,
                         context=file_type,
                         name='edit',
                         permission='edit',
                         renderer='kotti:templates/edit/node.pt', )
+    # WavFile add
+    config.add_view(AddWavFileFormView,
+                    name=WavFile.type_info.add_view,
+                    permission='add',
+                    renderer='kotti:templates/edit/node.pt', )
     # Mp3File add
     config.add_view(AddMp3FileFormView,
                     name=Mp3File.type_info.add_view,
