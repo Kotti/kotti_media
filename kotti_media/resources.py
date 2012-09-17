@@ -14,7 +14,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 
 
-class VideoFileTypeInfo(TypeInfo):
+class MediaFileTypeInfo(TypeInfo):
 
     def addable(self, context, request):
         """Return True if
@@ -33,14 +33,14 @@ class VideoFileTypeInfo(TypeInfo):
 
         d = self.__dict__.copy()
         d.update(kwargs)
-        return VideoFileTypeInfo(**d)
+        return MediaFileTypeInfo(**d)
 
     def __repr__(self):
 
         return pformat(self.__dict__)
 
 
-generic_video_file_type_info = VideoFileTypeInfo(name=u"VideoFile",
+generic_video_file_type_info = MediaFileTypeInfo(name=u"VideoFile",
                                                  title=_(u"Video file"),
                                                  addable_to=[u"Video", ],
                                                  add_view=None,
@@ -177,33 +177,7 @@ class Video(Document):
         return None
 
 
-class AudioFileTypeInfo(TypeInfo):
-
-    def addable(self, context, request):
-        """Return True if
-            - the type described in 'self' may be added  *and*
-            - no other child of the same type has already be added
-           to 'context'."""
-
-        if view_permitted(context, request, self.add_view):
-            addable = context.type_info.name in self.addable_to
-            child_type_already_added = self in [c.type_info for c in context.children]
-            return addable and not child_type_already_added
-        else:
-            return False
-
-    def copy(self, **kwargs):
-
-        d = self.__dict__.copy()
-        d.update(kwargs)
-        return AudioFileTypeInfo(**d)
-
-    def __repr__(self):
-
-        return pformat(self.__dict__)
-
-
-generic_audio_file_type_info = AudioFileTypeInfo(name=u"AudioFile",
+generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
                                                  title=_(u"Audio file"),
                                                  addable_to=[u"Audio", ],
                                                  add_view=None,
