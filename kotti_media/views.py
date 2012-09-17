@@ -2,10 +2,17 @@
 
 import logging
 from kotti.util import _
-from kotti.views.edit import DocumentSchema, make_generic_add, make_generic_edit
-from kotti.views.file import AddFileFormView, EditFileFormView
-from kotti_video.resources import Video, Mp4File, WebmFile, OggFile, SubtitlesFile, ChaptersFile
-from pyramid.response import Response
+from kotti.views.edit import DocumentSchema
+from kotti.views.edit import make_generic_add
+from kotti.views.edit import make_generic_edit
+from kotti.views.file import AddFileFormView
+from kotti.views.file import EditFileFormView
+from kotti_media.resources import ChaptersFile
+from kotti_media.resources import Mp4File
+from kotti_media.resources import OggFile
+from kotti_media.resources import SubtitlesFile
+from kotti_media.resources import Video
+from kotti_media.resources import WebmFile
 from pyramid.url import resource_url
 from pyramid.view import view_config
 
@@ -71,8 +78,8 @@ class AddChaptersFileFormView(AddFileFormView):
 
 def includeme(config):
 
-    config.add_static_view('static-kotti_video', 'kotti_video:static')
-    config.scan("kotti_video")
+    config.add_static_view('static-kotti_media', 'kotti_media:static')
+    config.scan("kotti_media")
 
     # Video add/edit
     config.add_view(make_generic_add(DocumentSchema(), Video),
