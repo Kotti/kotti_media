@@ -7,14 +7,14 @@ from kotti.views.edit import make_generic_add
 from kotti.views.edit import make_generic_edit
 from kotti.views.file import AddFileFormView
 from kotti.views.file import EditFileFormView
-from kotti_media.resources import Video
+from kotti_media.resources import Audio
+from kotti_media.resources import ChaptersFile
+from kotti_media.resources import Mp3File
 from kotti_media.resources import Mp4File
 from kotti_media.resources import OggFile
-from kotti_media.resources import WebmFile
-from kotti_media.resources import ChaptersFile
 from kotti_media.resources import SubtitlesFile
-from kotti_media.resources import Audio
-from kotti_media.resources import Mp3File
+from kotti_media.resources import Video
+from kotti_media.resources import WebmFile
 from pyramid.url import resource_url
 from pyramid.view import view_config
 
