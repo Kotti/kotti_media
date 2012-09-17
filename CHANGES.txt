@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.3
+---
+
+- Rename package to kotti_media (was: kotti_video)
+
 0.2
 ---
 

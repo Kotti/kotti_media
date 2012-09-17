@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.2'
+version = '0.3dev'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -23,7 +23,7 @@ tests_require = ["pytest",
                  "wsgi_intercept",
                  "zope.testbrowser", ]
 
-setup(name='kotti_video',
+setup(name='kotti_media',
       version=version,
       description="Add videos to your Kotti site",
       long_description=README + '\n\n' + TODO + '\n\n' + CHANGES,
@@ -36,7 +36,7 @@ setup(name='kotti_video',
       keywords='video medialementjs kotti cms pylons pyramid',
       author='Andreas Kaiser',
       author_email='disko@binary-punks.com',
-      url='https://github.com/disko/kotti_video',
+      url='https://github.com/disko/kotti_media',
       license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
