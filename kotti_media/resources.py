@@ -26,7 +26,7 @@ class MediaFileTypeInfo(TypeInfo):
             addable = context.type_info.name in self.addable_to
             child_type_already_added = self in [c.type_info for c in context.children]
             return addable and not child_type_already_added
-        else:
+        else:  # pragma: no cover (this already tested in Kotti itself)
             return False
 
     def copy(self, **kwargs):
@@ -35,7 +35,7 @@ class MediaFileTypeInfo(TypeInfo):
         d.update(kwargs)
         return MediaFileTypeInfo(**d)
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
 
         return pformat(self.__dict__)
 
@@ -45,6 +45,24 @@ generic_video_file_type_info = MediaFileTypeInfo(name=u"VideoFile",
                                                  addable_to=[u"Video", ],
                                                  add_view=None,
                                                  edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
+
+generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
+                                                 title=_(u"Audio file"),
+                                                 addable_to=[u"Audio", ],
+                                                 add_view=None,
+                                                 edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
+
+
+class Mp3File(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_audio_file_type_info.copy(name=u"Mp3File",
+                                                  title=_(u"Audio file (*.mp3)"),
+                                                  add_view="add_mp3file")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(Mp3File, self).__init__(data=data, filename="audio.mp3", mimetype="audio/mp3", size=size, **kwargs)
 
 
 class Mp4File(File):
@@ -101,7 +119,42 @@ class ChaptersFile(File):
                                                   add_view="add_chaptersfile")
 
 
-class Video(Document):
+class MediaContentBase(object):
+
+    @property
+    def poster_file(self):
+
+        session = DBSession()
+        query = session.query(Image).filter(Image.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+
+class Audio(Document, MediaContentBase):
+
+    id = Column(Integer(), ForeignKey('documents.id'), primary_key=True)
+
+    type_info = Document.type_info.copy(name=u"Audio",
+                                        title=_(u"Audio"),
+                                        addable_to=[u"Document"],
+                                        add_view="add_audio", )
+
+    @property
+    def mp3_file(self):
+
+        session = DBSession()
+        query = session.query(Mp3File).filter(Mp3File.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+
+class Video(Document, MediaContentBase):
 
     id = Column(Integer(), ForeignKey('documents.id'), primary_key=True)
 
@@ -159,68 +212,6 @@ class Video(Document):
 
         session = DBSession()
         query = session.query(ChaptersFile).filter(ChaptersFile.parent_id == self.id)
-
-        if query.count() > 0:
-            return query.first()
-
-        return None
-
-    @property
-    def poster_file(self):
-
-        session = DBSession()
-        query = session.query(Image).filter(Image.parent_id == self.id)
-
-        if query.count() > 0:
-            return query.first()
-
-        return None
-
-
-generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
-                                                 title=_(u"Audio file"),
-                                                 addable_to=[u"Audio", ],
-                                                 add_view=None,
-                                                 edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
-
-
-class Mp3File(File):
-
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
-
-    type_info = generic_audio_file_type_info.copy(name=u"Mp3File",
-                                                  title=_(u"Audio file (*.mp3)"),
-                                                  add_view="add_mp3file")
-
-    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
-        super(Mp3File, self).__init__(data=data, filename="audio.mp3", mimetype="audio/mp3", size=size, **kwargs)
-
-
-class Audio(Document):
-
-    id = Column(Integer(), ForeignKey('documents.id'), primary_key=True)
-
-    type_info = Document.type_info.copy(name=u"Audio",
-                                        title=_(u"Audio"),
-                                        addable_to=[u"Document"],
-                                        add_view="add_audio", )
-
-    @property
-    def mp3_file(self):
-
-        session = DBSession()
-        query = session.query(Mp3File).filter(Mp3File.parent_id == self.id)
-
-        if query.count() > 0:
-            return query.first()
-
-        return None
-
-    @property
-    def poster_file(self):
-
-        session = DBSession()
-        query = session.query(Image).filter(Image.parent_id == self.id)
 
         if query.count() > 0:
             return query.first()
