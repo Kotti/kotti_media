@@ -1,5 +1,5 @@
 TODO
 ====
 
-- add tests
+- extend browser tests
 - add/verify support for subtitles and chapter marks

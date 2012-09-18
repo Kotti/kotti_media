@@ -5,6 +5,8 @@ CHANGES
 ---
 
 - Rename package to kotti_media (was: kotti_video)
+- Add tests (100% coverage from now on!)
+- Add audio support
 
 0.2
 ---

@@ -2,13 +2,13 @@
 kotti_media
 ===========
 
-This is an extension to the Kotti CMS that allows you to add videos to your Kotti site.
+This is an extension to the Kotti CMS that allows you to add audio and video to your Kotti site.
 
 `Find out more about Kotti`_
 
-``kotti_media`` uses `MediaElementJS`_ for video and audio views and thus supports native HTML5 video playback on all platforms that support this.
+``kotti_media`` uses `MediaElementJS`_ for video and audio views and thus supports native HTML5 playback on all platforms that support this.
 Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal. For audio, supported formats include mp3 and wav.
-For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every video can be played on every platform if all supported formats are uploaded.
+For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every resopurce can be played on every platform if all supported formats are uploaded.
 
 Compatibility
 =============
@@ -54,7 +54,7 @@ Testing
 
 [![Build Status](https://secure.travis-ci.org/disko/kotti_media.png)](http://travis-ci.org/disko/kotti_media)
 
-``kotti_media`` will have 100% test coverage very soon.
+``kotti_media`` has 100% test coverage.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
 Running the test suite is as easy as running ``py.test`` from the source directory.
 
