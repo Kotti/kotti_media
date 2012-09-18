@@ -1,0 +1,46 @@
+Browser tests
+=============
+
+Setup
+-----
+
+  >>> from kotti import testing
+  >>> from kotti.resources import get_root
+  >>> tools = testing.setUpFunctional(kotti.configurators="kotti_media.kotti_configure")
+  >>> browser = tools['Browser']()
+  >>> root = get_root()
+
+Add audio content
+
+  >>> from kotti.resources import Image
+  >>> from kotti_media.resources import Audio
+  >>> from kotti_media.resources import Mp3File
+  >>> audio = root['audio'] = Audio()
+  >>> audio['mp3'] = Mp3File()
+  >>> audio['poster'] = Image()
+
+Test the audio view
+
+  >>> browser.open(testing.BASE_URL + '/audio')
+  >>> import pdb;pdb.set_trace()
+
+Add video content
+
+  >>> from kotti_media.resources import ChaptersFile
+  >>> from kotti_media.resources import Mp4File
+  >>> from kotti_media.resources import OggFile
+  >>> from kotti_media.resources import SubtitlesFile
+  >>> from kotti_media.resources import Video
+  >>> from kotti_media.resources import WebmFile
+  >>> video = root['video'] = Video()
+  >>> video['chapters'] = ChaptersFile()
+  >>> video['mp4'] = Mp4File()
+  >>> video['ogg'] = OggFile()
+  >>> video['poster'] = Image()
+  >>> video['subs'] = SubtitlesFile()
+  >>> video['webm'] = WebmFile()
+
+Test the video view
+
+  >>> browser.open(testing.BASE_URL + '/video')
+  >>> import pdb;pdb.set_trace()
