@@ -6,41 +6,59 @@ Setup
 
   >>> from kotti import testing
   >>> from kotti.resources import get_root
-  >>> tools = testing.setUpFunctional(kotti.configurators="kotti_media.kotti_configure")
+  >>> tools = testing.setUpFunctional(**{
+  ...     'kotti.configurators': 'kotti_media.kotti_configure',
+  ...     })
   >>> browser = tools['Browser']()
+  >>> ctrl = browser.getControl
   >>> root = get_root()
 
-Add audio content
+Login
+-----
 
-  >>> from kotti.resources import Image
-  >>> from kotti_media.resources import Audio
-  >>> from kotti_media.resources import Mp3File
-  >>> audio = root['audio'] = Audio()
-  >>> audio['mp3'] = Mp3File()
-  >>> audio['poster'] = Image()
+  >>> browser.open(testing.BASE_URL + '/edit')
+  >>> "Log in" in browser.contents
+  True
+  >>> ctrl("Username or email").value = "admin"
+  >>> ctrl("Password").value = "secret"
+  >>> ctrl(name="submit").click()
+  >>> "Welcome, Administrator" in browser.contents
+  True
+
+Add audio content
+-----------------
+
+  >>> browser.open(testing.BASE_URL + '/view')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio").click()
+  >>> ctrl("Title").value = "My Audio"
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-audio/'
+  True
 
 Test the audio view
+-------------------
 
-  >>> browser.open(testing.BASE_URL + '/audio')
-  >>> import pdb;pdb.set_trace()
+  >>> "<audio>" in browser.contents
+  >>> #import pdb; pdb.set_trace()
 
 Add video content
+-----------------
 
-  >>> from kotti_media.resources import ChaptersFile
-  >>> from kotti_media.resources import Mp4File
-  >>> from kotti_media.resources import OggFile
-  >>> from kotti_media.resources import SubtitlesFile
-  >>> from kotti_media.resources import Video
-  >>> from kotti_media.resources import WebmFile
-  >>> video = root['video'] = Video()
-  >>> video['chapters'] = ChaptersFile()
-  >>> video['mp4'] = Mp4File()
-  >>> video['ogg'] = OggFile()
-  >>> video['poster'] = Image()
-  >>> video['subs'] = SubtitlesFile()
-  >>> video['webm'] = WebmFile()
+  >>> browser.open(testing.BASE_URL + '/view')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Video").click()
+  >>> ctrl("Title").value = "My Video"
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-video/'
+  True
 
 Test the video view
+-------------------
 
-  >>> browser.open(testing.BASE_URL + '/video')
-  >>> import pdb;pdb.set_trace()
+  >>> "<video>" in browser.contents
+  >>> #import pdb; pdb.set_trace()
