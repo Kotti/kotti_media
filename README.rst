@@ -56,7 +56,7 @@ Testing
 
 ``kotti_media`` has 100% test coverage.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
-Running the test suite is as easy as running ``py.test`` from the source directory.
+Running the test suite is as easy as running ``py.test`` from the source directory (you might need to run ``python setup.py dev`` to have all the test requirements installed in your virtualenv).
 
 
 .. _Find out more about Kotti: http://pypi.python.org/pypi/Kotti
