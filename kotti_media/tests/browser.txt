@@ -16,7 +16,10 @@ Add audio content
   >>> from kotti_media.resources import Audio
   >>> from kotti_media.resources import Mp3File
   >>> audio = root['audio'] = Audio()
+  >>> audio['m4a'] = M4aFile()
   >>> audio['mp3'] = Mp3File()
+  >>> audio['oga'] = OgaFile()
+  >>> audio['wav'] = WavFile()
   >>> audio['poster'] = Image()
 
 Test the audio view
@@ -28,17 +31,17 @@ Add video content
 
   >>> from kotti_media.resources import ChaptersFile
   >>> from kotti_media.resources import Mp4File
-  >>> from kotti_media.resources import OggFile
+  >>> from kotti_media.resources import OgvFile
   >>> from kotti_media.resources import SubtitlesFile
   >>> from kotti_media.resources import Video
   >>> from kotti_media.resources import WebmFile
   >>> video = root['video'] = Video()
   >>> video['chapters'] = ChaptersFile()
   >>> video['mp4'] = Mp4File()
-  >>> video['ogg'] = OggFile()
+  >>> video['ogv'] = OgvFile()
+  >>> video['webm'] = WebmFile()
   >>> video['poster'] = Image()
   >>> video['subs'] = SubtitlesFile()
-  >>> video['webm'] = WebmFile()
 
 Test the video view
 

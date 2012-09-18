@@ -18,10 +18,12 @@
       </div>
       <div class="span6">
         <audio poster="${poster_url}" controls="controls">
-          <!-- WAV -->
-          <source tal:condition="wav_url" type="audio/wav" src="${wav_url}" />
           <!-- MP3 -->
           <source tal:condition="mp3_url" type="audio/mp3" src="${mp3_url}" />
+          <!-- OGA -->
+          <source tal:condition="oga_url" type="audio/ogg" src="${oga_url}" />
+          <!-- WAV -->
+          <source tal:condition="wav_url" type="audio/wav" src="${wav_url}" />
         </audio>
       </div>
     </div>

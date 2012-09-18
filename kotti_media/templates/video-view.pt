@@ -23,7 +23,7 @@
           <!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
           <source tal:condition="webm_url" type="video/webm" src="${webm_url}" />
           <!-- Ogg/Vorbis for older Firefox and Opera versions -->
-          <source tal:condition="ogg_url" type="video/ogg" src="${ogg_url}" />
+          <source tal:condition="ogv_url" type="video/ogg" src="${ogv_url}" />
           <!-- Optional: Add subtitles for each language -->
           <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
           <!-- Optional: Add chapters -->

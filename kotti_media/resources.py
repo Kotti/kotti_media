@@ -52,17 +52,18 @@ generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
                                                  add_view=None,
                                                  edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
 
+# Audio files
 
-class WavFile(File):
+class M4aFile(File):
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
 
-    type_info = generic_audio_file_type_info.copy(name=u"WavFile",
-                                                  title=_(u"Audio file (*.wav)"),
-                                                  add_view="add_wavfile")
+    type_info = generic_audio_file_type_info.copy(name=u"M4aFile",
+                                                  title=_(u"Audio file (*.m4a)"),
+                                                  add_view="add_m4afile")
 
     def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
-        super(WavFile, self).__init__(data=data, filename="audio.wav", mimetype="audio/wav", size=size, **kwargs)
+        super(M4aFile, self).__init__(data=data, filename="audio.m4a", mimetype="audio/mp4", size=size, **kwargs)
 
 
 class Mp3File(File):
@@ -77,6 +78,31 @@ class Mp3File(File):
         super(Mp3File, self).__init__(data=data, filename="audio.mp3", mimetype="audio/mp3", size=size, **kwargs)
 
 
+class OgaFile(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_audio_file_type_info.copy(name=u"OgaFile",
+                                                  title=_(u"Audio file (*.oga)"),
+                                                  add_view="add_ogafile")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(OgaFile, self).__init__(data=data, filename="audio.oga", mimetype="audio/ogg", size=size, **kwargs)
+
+
+class WavFile(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_audio_file_type_info.copy(name=u"WavFile",
+                                                  title=_(u"Audio file (*.wav)"),
+                                                  add_view="add_wavfile")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(WavFile, self).__init__(data=data, filename="audio.wav", mimetype="audio/wav", size=size, **kwargs)
+
+# Video files
+
 class Mp4File(File):
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
@@ -89,6 +115,18 @@ class Mp4File(File):
         super(Mp4File, self).__init__(data=data, filename="video.mp4", mimetype="video/mp4", size=size, **kwargs)
 
 
+class OgvFile(File):
+
+    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    type_info = generic_video_file_type_info.copy(name=u"OgvFile",
+                                                  title=_(u"Video file (*.ogv)"),
+                                                  add_view="add_ogvfile")
+
+    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
+        super(OgvFile, self).__init__(data=data, filename="video.ogv", mimetype="video/ogg", size=size, **kwargs)
+
+
 class WebmFile(File):
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
@@ -99,18 +137,6 @@ class WebmFile(File):
 
     def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
         super(WebmFile, self).__init__(data=data, filename="video.webm", mimetype="video/webm", size=size, **kwargs)
-
-
-class OggFile(File):
-
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
-
-    type_info = generic_video_file_type_info.copy(name=u"OggFile",
-                                                  title=_(u"Video file (*.ogg)"),
-                                                  add_view="add_oggfile")
-
-    def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
-        super(OggFile, self).__init__(data=data, filename="video.ogv", mimetype="video/ogg", size=size, **kwargs)
 
 
 class SubtitlesFile(File):
@@ -155,10 +181,34 @@ class Audio(Document, MediaContentBase):
                                         add_view="add_audio", )
 
     @property
+    def m4a_file(self):
+
+        session = DBSession()
+        query = session.query(M4aFile).filter(M4aFile.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+
+    @property
     def mp3_file(self):
 
         session = DBSession()
         query = session.query(Mp3File).filter(Mp3File.parent_id == self.id)
+
+        if query.count() > 0:
+            return query.first()
+
+        return None
+
+
+    @property
+    def oga_file(self):
+
+        session = DBSession()
+        query = session.query(OgaFile).filter(OgaFile.parent_id == self.id)
 
         if query.count() > 0:
             return query.first()
@@ -210,10 +260,10 @@ class Video(Document, MediaContentBase):
         return None
 
     @property
-    def ogg_file(self):
+    def ogv_file(self):
 
         session = DBSession()
-        query = session.query(OggFile).filter(OggFile.parent_id == self.id)
+        query = session.query(OgvFile).filter(OgvFile.parent_id == self.id)
 
         if query.count() > 0:
             return query.first()

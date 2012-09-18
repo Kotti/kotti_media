@@ -8,14 +8,16 @@ from kotti.views.edit import make_generic_edit
 from kotti.views.file import AddFileFormView
 from kotti.views.file import EditFileFormView
 from kotti_media.resources import Audio
-from kotti_media.resources import ChaptersFile
-from kotti_media.resources import WavFile
+from kotti_media.resources import M4aFile
 from kotti_media.resources import Mp3File
-from kotti_media.resources import Mp4File
-from kotti_media.resources import OggFile
-from kotti_media.resources import SubtitlesFile
+from kotti_media.resources import OgaFile
+from kotti_media.resources import WavFile
 from kotti_media.resources import Video
+from kotti_media.resources import Mp4File
+from kotti_media.resources import OgvFile
 from kotti_media.resources import WebmFile
+from kotti_media.resources import SubtitlesFile
+from kotti_media.resources import ChaptersFile
 from pyramid.url import resource_url
 from pyramid.view import view_config
 
@@ -38,7 +40,7 @@ class AudioView(BaseView):
                  renderer='templates/audio-view.pt')
     def view(self):
         result = {}
-        for t in ("wav", "mp3", "poster"):
+        for t in ("m4a", "mp3", "oga", "wav", "poster"):
             key = "%s_url" % t
             file = getattr(self.context, "%s_file" % t)
             if file is None:
@@ -57,7 +59,7 @@ class VideoView(BaseView):
                  renderer='templates/video-view.pt')
     def view(self):
         result = {}
-        for t in ("mp4", "webm", "ogg", "subtitles", "chapters", "poster"):
+        for t in ("mp4", "ogv", "webm", "subtitles", "chapters", "poster"):
             key = "%s_url" % t
             file = getattr(self.context, "%s_file" % t)
             if file is None:
@@ -68,10 +70,10 @@ class VideoView(BaseView):
         return result
 
 
-class AddWavFileFormView(AddFileFormView):
+class AddM4aFileFormView(AddFileFormView):
 
-    item_type = _(u"WavFile")
-    item_class = WavFile
+    item_type = _(u"M4aFile")
+    item_class = M4aFile
 
 
 class AddMp3FileFormView(AddFileFormView):
@@ -80,22 +82,34 @@ class AddMp3FileFormView(AddFileFormView):
     item_class = Mp3File
 
 
+class AddOgaFileFormView(AddFileFormView):
+
+    item_type = _(u"OgaFile")
+    item_class = OgaFile
+
+
+class AddWavFileFormView(AddFileFormView):
+
+    item_type = _(u"WavFile")
+    item_class = WavFile
+
+
 class AddMp4FileFormView(AddFileFormView):
 
     item_type = _(u"Mp4File")
     item_class = Mp4File
 
 
+class AddOgvFileFormView(AddFileFormView):
+
+    item_type = _(u"OgvFile")
+    item_class = OgvFile
+
+
 class AddWebmFileFormView(AddFileFormView):
 
     item_type = _(u"WebmFile")
     item_class = WebmFile
-
-
-class AddOggFileFormView(AddFileFormView):
-
-    item_type = _(u"OggFile")
-    item_class = OggFile
 
 
 class AddSubtitlesFileFormView(AddFileFormView):
@@ -138,15 +152,15 @@ def includeme(config):
                     renderer='kotti:templates/edit/node.pt', )
 
     # File types edit
-    for file_type in (WavFile, Mp3File, Mp4File, WebmFile, OggFile, SubtitlesFile, ChaptersFile):
+    for file_type in (M4aFile, Mp3File, OgaFile, WavFile, Mp4File, OgvFile, WebmFile, SubtitlesFile, ChaptersFile):
         config.add_view(EditFileFormView,
                         context=file_type,
                         name='edit',
                         permission='edit',
                         renderer='kotti:templates/edit/node.pt', )
-    # WavFile add
-    config.add_view(AddWavFileFormView,
-                    name=WavFile.type_info.add_view,
+    # M4aFile add
+    config.add_view(AddM4aFileFormView,
+                    name=M4aFile.type_info.add_view,
                     permission='add',
                     renderer='kotti:templates/edit/node.pt', )
     # Mp3File add
@@ -154,19 +168,29 @@ def includeme(config):
                     name=Mp3File.type_info.add_view,
                     permission='add',
                     renderer='kotti:templates/edit/node.pt', )
+    # OgaFile add
+    config.add_view(AddOgaFileFormView,
+                    name=OgaFile.type_info.add_view,
+                    permission='add',
+                    renderer='kotti:templates/edit/node.pt', )
+    # WavFile add
+    config.add_view(AddWavFileFormView,
+                    name=WavFile.type_info.add_view,
+                    permission='add',
+                    renderer='kotti:templates/edit/node.pt', )
     # Mp4File add
     config.add_view(AddMp4FileFormView,
                     name=Mp4File.type_info.add_view,
                     permission='add',
                     renderer='kotti:templates/edit/node.pt', )
+    # OgvFile add
+    config.add_view(AddOgvFileFormView,
+                    name=OgvFile.type_info.add_view,
+                    permission='add',
+                    renderer='kotti:templates/edit/node.pt', )
     # WebmFile add
     config.add_view(AddWebmFileFormView,
                     name=WebmFile.type_info.add_view,
-                    permission='add',
-                    renderer='kotti:templates/edit/node.pt', )
-    # OggFile add
-    config.add_view(AddOggFileFormView,
-                    name=OggFile.type_info.add_view,
                     permission='add',
                     renderer='kotti:templates/edit/node.pt', )
     # SubtitlesFile add
