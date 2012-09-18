@@ -41,7 +41,10 @@ Add audio content
 Test the audio view
 -------------------
 
-  >>> "<audio>" in browser.contents
+  >>> "<audio" in browser.contents
+  True
+  >>> "</audio>" in browser.contents
+  True
   >>> #import pdb; pdb.set_trace()
 
 Add video content
@@ -60,5 +63,8 @@ Add video content
 Test the video view
 -------------------
 
-  >>> "<video>" in browser.contents
+  >>> "<video" in browser.contents
+  True
+  >>> "</video>" in browser.contents
+  True
   >>> #import pdb; pdb.set_trace()
