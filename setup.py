@@ -19,6 +19,8 @@ except IOError:
     CHANGES = ""
 
 development_requires = ['minify', ]
+install_requires = ["Kotti>=0.7",
+                    "js.mediaelement", ]
 tests_require = ["pytest",
                 'pytest-cov',
                 'pytest-pep8',
@@ -45,7 +47,10 @@ setup(name='kotti_media',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=False,
-      install_requires=["Kotti>=0.7", "js.mediaelement", ],
+      install_requires=install_requires,
       tests_require=tests_require,
       extras_require={'testing': tests_require,
-                      'development': development_requires, }, )
+                      'development': development_requires, },
+      message_extractors={'kotti_media': [('**.py', 'lingua_python', None),
+                                          ('**.zcml', 'lingua_xml', None),
+                                          ('**.pt', 'lingua_xml', None), ]}, )

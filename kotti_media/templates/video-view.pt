@@ -2,11 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       metal:use-macro="api.macro('kotti:templates/view/master.pt')">
 
-  <more metal:fill-slot="head-more">
-    <script src="${request.static_url('kotti_media:static/mediaelement-and-player.min.js')}"></script>
-    <link rel="stylesheet" href="${request.static_url('kotti_media:static/mediaelementplayer.css')}" />
-  </more>
-
   <article metal:fill-slot="content" class="document-view content">
     <h1>${context.title}</h1>
     <div class="row">
@@ -28,13 +23,6 @@
           <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
           <!-- Optional: Add chapters -->
           <track tal:condition="chapters_url" kind="chapters" src="${chapters_url}" srclang="en" />
-          <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
-          <object tal:condition="mp4_url" width="320" height="240" type="application/x-shockwave-flash" data="${request.static_url('kotti_media:static/flashmediaelement.swf')}">
-            <param name="movie" value="${request.static_url('kotti_media:static/flashmediaelement.swf')}" />
-            <param name="flashvars" value="controls=true&file=${mp4_url}" />
-            <!-- Image as a last resort -->
-            <img src="${poster_url}" width="320" height="240" title="No video playback capabilities" />
-          </object>
         </video>
       </div>
     </div>

@@ -2,11 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       metal:use-macro="api.macro('kotti:templates/view/master.pt')">
 
-  <more metal:fill-slot="head-more">
-    <script src="${request.static_url('kotti_media:static/mediaelement-and-player.min.js')}"></script>
-    <link rel="stylesheet" href="${request.static_url('kotti_media:static/mediaelementplayer.css')}" />
-  </more>
-
   <article metal:fill-slot="content" class="document-view content">
     <h1>${context.title}</h1>
     <div class="row">
