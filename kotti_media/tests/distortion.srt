@@ -1,0 +1,11 @@
+1
+00:00:00,000 --> 00:00:02,800
+Distortion may result from many mechanisms.
+
+2
+00:00:02,801 --> 00:00:008,035
+Examples include nonlinearities in the transfer function of an active device,
+
+3
+00:00:08,036 --> 00:00:13,000
+such as a vacuum tube, transistor, or operational amplifier.

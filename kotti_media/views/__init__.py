@@ -2,6 +2,7 @@
 
 import logging
 from js.mediaelement import mediaelementandplayer
+from kotti.resources import Document
 from kotti_media.resources import Audio
 from kotti_media.resources import Video
 from pyramid.i18n import TranslationStringFactory
@@ -19,17 +20,20 @@ class BaseView(object):
         self.context = context
         self.request = request
 
-    def make_url(self, t):
+    def make_url(self, t, context=None):
 
-        file = getattr(self.context, "%s_file" % t)
+        if context is None:
+            context = self.context
+
+        file = getattr(context, "%s_file" % t)
 
         if file is None:
             return None
         else:
-            if file.external_url:
-                return file.external_url
-            else:
+            if file.data:
                 return resource_url(file, self.request, "@@attachment-view")
+            else:
+                return getattr(file, "external_url", None)
 
 
 class AudioView(BaseView):
@@ -68,6 +72,20 @@ class VideoView(BaseView):
 
             key = "%s_url" % t
             result[key] = self.make_url(t)
+
+        return result
+
+
+class MediaFolderView(BaseView):
+
+    @view_config(context=Document,
+                 name="media_folder_view",
+                 permission="view",
+                 renderer="kotti_media:templates/media-folder-view.pt")
+    def view(self):
+
+        media = [c for c in self.context.children if c.type in (Audio, Video)]
+        result = {}
 
         return result
 
