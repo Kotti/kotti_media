@@ -7,6 +7,7 @@ CHANGES
 - Rename package to kotti_media (was: kotti_video)
 - Add tests (100% coverage from now on!)
 - Add audio support
+- Add external URL support for CDN storage / delivery of file data
 
 0.2
 ---
