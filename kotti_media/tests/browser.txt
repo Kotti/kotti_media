@@ -45,7 +45,111 @@ Test the audio view
   True
   >>> "</audio>" in browser.contents
   True
-  >>> #import pdb; pdb.set_trace()
+  >>> '<source type="audio/mp3"' in browser.contents
+  False
+  >>> '<source type="audio/mp4"' in browser.contents
+  False
+  >>> '<source type="audio/ogg"' in browser.contents
+  False
+  >>> '<source type="audio/wav"' in browser.contents
+  False
+
+Add some audio files
+--------------------
+
+  >>> import os
+  >>> from kotti_media import tests
+  >>> here = os.path.dirname(tests.__file__)
+
+Try adding without file or external_url
+
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.m4a)").click()
+  >>> ctrl("save").click()
+  >>> "Either a file or an external URL is required" in browser.contents
+  True
+  >>> "Required if no external URL is supplied" in browser.contents
+  True
+  >>> "Required if no file is supplied" in browser.contents
+  True
+
+Try adding with file *and* external_url
+
+  >>> m4a = open(os.path.join(here, "distortion.m4a")).read()
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.m4a)").click()
+  >>> ctrl("File").add_file(m4a, 'audio/mp4', 'distortion.m4a')
+  >>> ctrl("External URL").value = "http://binary-punks.com/distortion.mp3"
+  >>> ctrl("save").click()
+  >>> "Either a file or an external URL is required, bot not both" in browser.contents
+  True
+  >>> "Must not be supplied if an external URL is supplied" in browser.contents
+  True
+  >>> "Must not be supplied if a file is supplied" in browser.contents
+  True
+
+M4A
+
+  >>> m4a = open(os.path.join(here, "distortion.m4a")).read()
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.m4a)").click()
+  >>> ctrl("File").add_file(m4a, 'audio/mp4', 'distortion.m4a')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+
+MP3
+
+  >>> mp3 = open(os.path.join(here, "distortion.mp3")).read()
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.mp3)").click()
+  >>> ctrl("File").add_file(m4a, 'audio/mp3', 'distortion.mp3')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+
+OGA
+
+  >>> oga = open(os.path.join(here, "distortion.oga")).read()
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.oga)").click()
+  >>> ctrl("File").add_file(m4a, 'audio/ogg', 'distortion.oga')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+
+WAV
+
+  >>> wav = open(os.path.join(here, "distortion.wav")).read()
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.wav)").click()
+  >>> ctrl("File").add_file(m4a, 'audio/wav', 'distortion.wav')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+
+Test the audio view again
+-------------------------
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> "<audio" in browser.contents
+  True
+  >>> "</audio>" in browser.contents
+  True
+  >>> '<source type="audio/mp3"' in browser.contents
+  True
+  >>> '<source type="audio/mp4"' in browser.contents
+  True
+  >>> '<source type="audio/ogg"' in browser.contents
+  True
+  >>> '<source type="audio/wav"' in browser.contents
+  True
+
 
 Add video content
 -----------------

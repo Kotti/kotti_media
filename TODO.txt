@@ -3,3 +3,4 @@ TODO
 
 - extend browser tests
 - add/verify support for subtitles and chapter marks
+- add poster file handling
