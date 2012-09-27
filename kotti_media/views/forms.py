@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from colander import deferred
 from colander import Invalid
 from colander import null
 from colander import SchemaNode
 from colander import String
 from deform import FileData
 from deform.widget import FileUploadWidget
-from js.mediaelement import mediaelementandplayer
 from kotti.views.edit import DocumentSchema
 from kotti.views.edit import make_generic_add
 from kotti.views.edit import make_generic_edit
@@ -30,71 +28,9 @@ from kotti_media.resources import Video
 from kotti_media.resources import WavFile
 from kotti_media.resources import WebmFile
 from pyramid.i18n import TranslationStringFactory
-from pyramid.url import resource_url
-from pyramid.view import view_config
 
 _ = TranslationStringFactory('kotti_media')
 log = logging.getLogger(__name__)
-
-
-class BaseView(object):
-
-    def __init__(self, context, request):
-
-        self.context = context
-        self.request = request
-
-    def make_url(self, t):
-
-        file = getattr(self.context, "%s_file" % t)
-
-        if file is None:
-            return None
-        else:
-            if file.external_url:
-                return file.external_url
-            else:
-                return resource_url(file, self.request, "@@attachment-view")
-
-
-class AudioView(BaseView):
-
-    @view_config(context=Audio,
-                 name='view',
-                 permission='view',
-                 renderer='templates/audio-view.pt')
-    def view(self):
-
-        mediaelementandplayer.need()
-
-        result = {}
-
-        for t in ("m4a", "mp3", "oga", "wav", "poster"):
-
-            key = "%s_url" % t
-            result[key] = self.make_url(t)
-
-        return result
-
-
-class VideoView(BaseView):
-
-    @view_config(context=Video,
-                 name='view',
-                 permission='view',
-                 renderer='templates/video-view.pt')
-    def view(self):
-
-        mediaelementandplayer.need()
-
-        result = {}
-
-        for t in ("mp4", "ogv", "webm", "subtitles", "chapters", "poster"):
-
-            key = "%s_url" % t
-            result[key] = self.make_url(t)
-
-        return result
 
 
 class AddMediaFileFormView(AddFileFormView):
@@ -289,8 +225,6 @@ class AddChaptersFileFormView(AddMediaFileFormView):
 
 
 def includeme(config):
-
-    config.scan("kotti_media")
 
     # Aaudio/Video add/edit
     for media_type in (Audio, Video, ):
