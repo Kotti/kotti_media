@@ -12,6 +12,7 @@ from pprint import pformat
 from sqlalchemy import Column
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
+from sqlalchemy import String
 
 
 class MediaFileTypeInfo(TypeInfo):
@@ -52,11 +53,21 @@ generic_audio_file_type_info = MediaFileTypeInfo(name=u"AudioFile",
                                                  add_view=None,
                                                  edit_links=[ViewLink('edit', title=_(u'Edit')), ], )
 
-# Audio files
 
-class M4aFile(File):
+class MediaFile(File):
+    """This is an 'abstract' base class for all media files that adds
+       an external URL attribute to to files to allow them to be served
+       from a CDN instead of storing the file data in Kotti's DB."""
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+
+    external_url = Column(String)
+
+# Audio files
+
+class M4aFile(MediaFile):
+
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_audio_file_type_info.copy(name=u"M4aFile",
                                                   title=_(u"Audio file (*.m4a)"),
@@ -66,9 +77,9 @@ class M4aFile(File):
         super(M4aFile, self).__init__(data=data, filename="audio.m4a", mimetype="audio/mp4", size=size, **kwargs)
 
 
-class Mp3File(File):
+class Mp3File(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_audio_file_type_info.copy(name=u"Mp3File",
                                                   title=_(u"Audio file (*.mp3)"),
@@ -78,9 +89,9 @@ class Mp3File(File):
         super(Mp3File, self).__init__(data=data, filename="audio.mp3", mimetype="audio/mp3", size=size, **kwargs)
 
 
-class OgaFile(File):
+class OgaFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_audio_file_type_info.copy(name=u"OgaFile",
                                                   title=_(u"Audio file (*.oga)"),
@@ -90,9 +101,9 @@ class OgaFile(File):
         super(OgaFile, self).__init__(data=data, filename="audio.oga", mimetype="audio/ogg", size=size, **kwargs)
 
 
-class WavFile(File):
+class WavFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_audio_file_type_info.copy(name=u"WavFile",
                                                   title=_(u"Audio file (*.wav)"),
@@ -103,9 +114,9 @@ class WavFile(File):
 
 # Video files
 
-class Mp4File(File):
+class Mp4File(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_video_file_type_info.copy(name=u"Mp4File",
                                                   title=_(u"Video file (*.mp4)"),
@@ -115,9 +126,9 @@ class Mp4File(File):
         super(Mp4File, self).__init__(data=data, filename="video.mp4", mimetype="video/mp4", size=size, **kwargs)
 
 
-class OgvFile(File):
+class OgvFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_video_file_type_info.copy(name=u"OgvFile",
                                                   title=_(u"Video file (*.ogv)"),
@@ -127,9 +138,9 @@ class OgvFile(File):
         super(OgvFile, self).__init__(data=data, filename="video.ogv", mimetype="video/ogg", size=size, **kwargs)
 
 
-class WebmFile(File):
+class WebmFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_video_file_type_info.copy(name=u"WebmFile",
                                                   title=_(u"Video file (*.webm)"),
@@ -139,23 +150,24 @@ class WebmFile(File):
         super(WebmFile, self).__init__(data=data, filename="video.webm", mimetype="video/webm", size=size, **kwargs)
 
 
-class SubtitlesFile(File):
+class SubtitlesFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_video_file_type_info.copy(name=u"SubtitlesFile",
                                                   title=_(u"Subtitles file (*.srt)"),
                                                   add_view="add_subtitlesfile")
 
 
-class ChaptersFile(File):
+class ChaptersFile(MediaFile):
 
-    id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
+    id = Column(Integer(), ForeignKey('media_files.id'), primary_key=True)
 
     type_info = generic_video_file_type_info.copy(name=u"ChaptersFile",
                                                   title=_(u"Chapters file (*.srt)"),
                                                   add_view="add_chaptersfile")
 
+# The "containers"
 
 class MediaContentBase(object):
 
@@ -191,7 +203,6 @@ class Audio(Document, MediaContentBase):
 
         return None
 
-
     @property
     def mp3_file(self):
 
@@ -203,7 +214,6 @@ class Audio(Document, MediaContentBase):
 
         return None
 
-
     @property
     def oga_file(self):
 
@@ -214,7 +224,6 @@ class Audio(Document, MediaContentBase):
             return query.first()
 
         return None
-
 
     @property
     def wav_file(self):
