@@ -8,37 +8,37 @@ here = os.path.abspath(os.path.dirname(__file__))
 try:
     README = open(os.path.join(here, 'README.rst')).read()
 except IOError:
-    README = ""
+    README = ''
 try:
     TODO = open(os.path.join(here, 'TODO.txt')).read()
 except IOError:
-    TODO = ""
+    TODO = ''
 try:
     CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 except IOError:
-    CHANGES = ""
+    CHANGES = ''
 
 development_requires = ['minify', ]
-install_requires = ["Kotti>=0.7",
-                    "js.mediaelement", ]
-tests_require = ["pytest",
+install_requires = ['Kotti>=0.7',
+                    'js.mediaelement', ]
+tests_require = ['pytest',
                 'pytest-cov',
                 'pytest-pep8',
                 'pytest-xdist',
-                 "WebTest",
-                 "wsgi_intercept",
-                 "zope.testbrowser", ]
+                'WebTest',
+                'wsgi_intercept',
+                'zope.testbrowser', ]
 
 setup(name='kotti_media',
       version=version,
-      description="Add media content to your Kotti site",
+      description='Add media content to your Kotti site',
       long_description=README + '\n\n' + TODO + '\n\n' + CHANGES,
-      classifiers=["Programming Language :: Python",
-                   "Framework :: Pylons",
-                   "Topic :: Internet :: WWW/HTTP",
-                   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
-                   "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-                   "License :: Repoze Public License", ],
+      classifiers=['Programming Language :: Python',
+                   'Framework :: Pylons',
+                   'Topic :: Internet :: WWW/HTTP',
+                   'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+                   'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+                   'License :: Repoze Public License', ],
       keywords='video audio medialementjs kotti cms pylons pyramid',
       author='Andreas Kaiser',
       author_email='disko@binary-punks.com',

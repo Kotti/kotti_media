@@ -61,9 +61,13 @@ class MediaFile(File):
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
 
-    external_url = Column(String)
+    external_url = Column(String(1000))
 
-# Audio files
+
+###############
+# AUDIO FILES #
+###############
+
 
 class M4aFile(MediaFile):
 
@@ -112,7 +116,11 @@ class WavFile(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None, **kwargs):
         super(WavFile, self).__init__(data=data, filename="audio.wav", mimetype="audio/wav", size=size, **kwargs)
 
-# Video files
+
+###############
+# VIDEO FILES #
+###############
+
 
 class Mp4File(MediaFile):
 
@@ -167,7 +175,11 @@ class ChaptersFile(MediaFile):
                                                   title=_(u"Chapters file (*.srt)"),
                                                   add_view="add_chaptersfile")
 
-# The "containers"
+
+##############
+# CONTAINERS #
+##############
+
 
 class MediaContentBase(object):
 
