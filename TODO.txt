@@ -1,7 +1,5 @@
 TODO
 ====
 
-- make audio_options and video_options configurable per instance
-  (store as annotation?)
-- extend browser tests
+- add test for player_options
 - add/verify support for subtitles and chapter marks

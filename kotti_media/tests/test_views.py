@@ -64,7 +64,7 @@ class ViewsTests(UnitTestBase):
         assert ('mp3_url' in view) and (view['mp3_url'] == 'http://example.com/audio/mp3/@@attachment-view')
         assert ('oga_url' in view) and (view['oga_url'] == 'http://example.com/audio/oga/@@attachment-view')
         assert ('wav_url' in view) and (view['wav_url'] == 'http://example.com/audio/wav/@@attachment-view')
-        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/audio/poster/@@attachment-view')
+        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/audio/poster/image')
 
     def test_video_view(self):
 
@@ -110,7 +110,7 @@ class ViewsTests(UnitTestBase):
         assert ('webm_url' in view) and (view['webm_url'] == 'http://example.com/video/webm/@@attachment-view')
         assert ('subtitles_url' in view) and (view['subtitles_url'] == 'http://example.com/video/subs/@@attachment-view')
         assert ('chapters_url' in view) and (view['chapters_url'] == 'http://example.com/video/chapters/@@attachment-view')
-        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/video/poster/@@attachment-view')
+        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/video/poster/image')
 
     def test_media_folder_view(self):
 
@@ -119,4 +119,5 @@ class ViewsTests(UnitTestBase):
         video = root['video'] = Video()
         view = MediaFolderView(root, DummyRequest()).view()
 
-        assert view == {'media': [audio, video, ]}
+        assert 'media' in view and view['media'] == [audio, video, ]
+        assert 'can_edit_player_options' in view
