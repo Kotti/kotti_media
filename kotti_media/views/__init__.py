@@ -81,8 +81,7 @@ class PlayerOptionsSchema(MappingSchema):
     # keyActions
 
 
-@view_defaults(context=MediaContentBase,
-               permission='view')
+@view_defaults(permission='view')
 class BaseView(object):
 
     def __init__(self, context, request):
@@ -134,9 +133,13 @@ class BaseView(object):
     def player_options(self):
 
         schema = PlayerOptionsSchema()
+        action = self.request.resource_url(self.context)
+        if not action.endswith('/'):
+            action += '/'
+        action += 'player_options'
         form = Form(
             schema,
-            action="%s/player_options" % self.request.resource_url(self.context),
+            action=action,
             buttons=(
                 Button(name='save', title=_("Save")),
             )
