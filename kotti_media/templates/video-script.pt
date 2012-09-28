@@ -1,14 +1,14 @@
 <script>
   $(function(){
-    $('video').mediaelementplayer({
+    var video_options = {
       defaultVideoWidth: 480,
       defaultVideoHeight: 270,
       videoWidth: -1,
       videoHeight: -1,
       audioWidth: 400,
       audioHeight: 30,
-      startVolume: 0.8,
-      loop: true,
+      startVolume: 1.0,
+      loop: false,
       enableAutosize: true,
       features: ['playpause','progress','current','duration','fullscreen'],
       alwaysShowControls: false,
@@ -21,6 +21,7 @@
       enableKeyboard: true,
       pauseOtherPlayers: true,
       keyActions: []
-    });
+    };
+    $('video').mediaelementplayer(video_options);
   });
 </script>

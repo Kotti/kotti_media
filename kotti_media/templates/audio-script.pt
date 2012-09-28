@@ -1,13 +1,11 @@
 <script>
   $(function(){
-    $('audio').mediaelementplayer({
+    var audio_options = {
       audioWidth: 400,
       audioHeight: 30,
-      startVolume: 0.8,
-      loop: true,
-
+      startVolume: 1.0,
+      loop: false,
       // [TODO] From here down, not sure if pertains to audio:
-
       enableAutosize: true,
       features: ['playpause','progress','current','duration','fullscreen'],
       alwaysShowControls: false,
@@ -20,6 +18,7 @@
       enableKeyboard: true,
       pauseOtherPlayers: true,
       keyActions: []
-    });
+    };
+    $('audio').mediaelementplayer(audio_options);
   });
 </script>
