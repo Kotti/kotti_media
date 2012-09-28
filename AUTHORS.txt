@@ -1,0 +1,7 @@
+AUTHORS
+=======
+
+``kotti_media`` was created by Andreas Kaiser (disko).
+
+Initial audio support has been contibuted by Jeff Pittman (geojeff).
+

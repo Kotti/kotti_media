@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.3'
+version = '0.3.1'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -13,6 +13,10 @@ try:
     TODO = open(os.path.join(here, 'TODO.txt')).read()
 except IOError:
     TODO = ''
+try:
+    AUTHORS = open(os.path.join(here, 'AUTHORS.txt')).read()
+except IOError:
+    AUTHORS = ''
 try:
     CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 except IOError:
@@ -32,7 +36,7 @@ tests_require = ['pytest',
 setup(name='kotti_media',
       version=version,
       description='Add media content to your Kotti site',
-      long_description=README + '\n\n' + TODO + '\n\n' + CHANGES,
+      long_description=README + '\n\n' + TODO + '\n\n' + AUTHORS + '\n\n' + CHANGES,
       classifiers=['Programming Language :: Python',
                    'Framework :: Pylons',
                    'Topic :: Internet :: WWW/HTTP',
