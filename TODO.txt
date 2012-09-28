@@ -1,6 +1,7 @@
 TODO
 ====
 
+- make audio_options and video_options configurable per instance
+  (store as annotation?)
 - extend browser tests
 - add/verify support for subtitles and chapter marks
-- add poster file handling
