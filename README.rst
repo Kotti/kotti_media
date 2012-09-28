@@ -63,3 +63,4 @@ Running the test suite is as easy as running ``py.test`` from the source directo
 .. _Github repository: https://github.com/disko/kotti_media
 .. _gitflow: https://github.com/nvie/gitflow
 .. _A successful Git branching model: http://nvie.com/posts/a-successful-git-branching-model/
+.. _MediaElementJS: http://mediaelementjs.com/
