@@ -1,6 +1,6 @@
 TODO
 ====
 
-- add audio file support
-- add tests
+- extend browser tests
 - add/verify support for subtitles and chapter marks
+- add poster file handling

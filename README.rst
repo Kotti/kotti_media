@@ -2,13 +2,13 @@
 kotti_media
 ===========
 
-This is an extension to the Kotti CMS that allows you to add videos to your Kotti site.
+This is an extension to the Kotti CMS that allows you to add audio and video to your Kotti site.
 
 `Find out more about Kotti`_
 
-``kotti_media`` uses `MediaElementJS`_ for the video view and thus supports native HTML5 video playback on all platforms that support this.
-Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal.
-For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every video can be played on every platform if all supported formats are uploaded.
+``kotti_media`` uses `MediaElementJS`_ for video and audio views and thus supports native HTML5 playback on all platforms that support this.
+Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal. For audio, supported formats include mp3 and wav.
+For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every resopurce can be played on every platform if all supported formats are uploaded.
 
 Compatibility
 =============
@@ -26,7 +26,7 @@ The line in your ``[app:main]`` section could then look like this::
 
   kotti.configurators = kotti_media.kotti_configure
 
-With this, you'll be able to add gallery and image items in your site.
+With this, you'll be able to add video and audio items in your site. Video and Audio content types are containers, into which you add specific media file types.
 
 
 Work in progress
@@ -52,13 +52,14 @@ This follows the highly recommended `A successful Git branching model`_ pattern,
 Testing
 -------
 
-``kotti_media`` will have 100% test coverage very soon.
+[![Build Status](https://secure.travis-ci.org/disko/kotti_media.png)](http://travis-ci.org/disko/kotti_media)
+
+``kotti_media`` has 100% test coverage.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
-Running the test suite is as easy as running ``py.test`` from the source directory.
+Running the test suite is as easy as running ``py.test`` from the source directory (you might need to run ``python setup.py dev`` to have all the test requirements installed in your virtualenv).
 
 
 .. _Find out more about Kotti: http://pypi.python.org/pypi/Kotti
-.. _`plone.scale`: http://pypi.python.org/pypi/plone.scale/1.2.2
 .. _Github repository: https://github.com/disko/kotti_media
 .. _gitflow: https://github.com/nvie/gitflow
 .. _A successful Git branching model: http://nvie.com/posts/a-successful-git-branching-model/

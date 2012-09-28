@@ -1,0 +1,24 @@
+<script>
+  $(function(){
+    var audio_options = {
+      audioWidth: 400,
+      audioHeight: 30,
+      startVolume: 1.0,
+      loop: false,
+      // [TODO] From here down, not sure if pertains to audio:
+      enableAutosize: true,
+      features: ['playpause','progress','current','duration','fullscreen'],
+      alwaysShowControls: false,
+      iPadUseNativeControls: true,
+      iPhoneUseNativeControls: true,
+      AndroidUseNativeControls: true,
+      alwaysShowHours: false,
+      showTimecodeFrameCount: false,
+      framesPerSecond: 25,
+      enableKeyboard: true,
+      pauseOtherPlayers: true,
+      keyActions: []
+    };
+    $('audio').mediaelementplayer(audio_options);
+  });
+</script>

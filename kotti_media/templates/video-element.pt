@@ -1,0 +1,7 @@
+<video poster="${poster_url}" controls="controls">
+  <source tal:condition="mp4_url" type="video/mp4" src="${mp4_url}" />
+  <source tal:condition="webm_url" type="video/webm" src="${webm_url}" />
+  <source tal:condition="ogv_url" type="video/ogg" src="${ogv_url}" />
+  <track tal:condition="subtitles_url" kind="subtitles" src="${subtitles_url}" srclang="en" />
+  <track tal:condition="chapters_url" kind="chapters" src="${chapters_url}" srclang="en" />
+</video>

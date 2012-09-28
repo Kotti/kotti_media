@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      metal:use-macro="api.macro('kotti:templates/view/master.pt')">
+
+  <article metal:fill-slot="content" class="document-view content">
+    <h1>${context.title}</h1>
+    <p class="description">${context.description}</p>
+    <p tal:replace="structure context.body"></p>
+
+    <div class="row" tal:repeat="m media">
+      <div class="span12">
+        <h2>${m.title}</h2>
+        <p>${m.description}</p>
+        <media tal:replace="api.render_view('element', context=m)" />
+      </div>
+    </div>
+    <script tal:replace="api.render_template('kotti_media:templates/audio-script.pt')" />
+    <script tal:replace="api.render_template('kotti_media:templates/video-script.pt')" />
+  </article>
+</html>

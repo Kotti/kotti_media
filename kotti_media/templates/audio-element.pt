@@ -1,0 +1,6 @@
+<audio poster="${poster_url}" controls="controls">
+  <source tal:condition="m4a_url" type="audio/mp4" src="${m4a_url}" />
+  <source tal:condition="mp3_url" type="audio/mp3" src="${mp3_url}" />
+  <source tal:condition="oga_url" type="audio/ogg" src="${oga_url}" />
+  <source tal:condition="wav_url" type="audio/wav" src="${wav_url}" />
+</audio>
