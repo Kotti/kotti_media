@@ -8,6 +8,7 @@ from kotti_media.resources import Video
 from pyramid.i18n import TranslationStringFactory
 from pyramid.url import resource_url
 from pyramid.view import view_config
+from pyramid.view import view_defaults
 
 _ = TranslationStringFactory('kotti_media')
 log = logging.getLogger(__name__)
@@ -36,15 +37,19 @@ class BaseView(object):
                 return getattr(file, "external_url", None)
 
 
+@view_defaults(context=Audio,
+               permission='view')
 class AudioView(BaseView):
 
-    @view_config(context=Audio,
-                 name='view',
-                 permission='view',
+    @view_config(name='view',
                  renderer='kotti_media:templates/audio-view.pt')
     def view(self):
 
-        mediaelementandplayer.need()
+        return {}
+
+    @view_config(name='element',
+                 renderer='kotti_media:templates/audio-element.pt')
+    def element(self):
 
         result = {}
 
@@ -55,16 +60,28 @@ class AudioView(BaseView):
 
         return result
 
+    @view_config(name='script',
+                 renderer='kotti_media:templates/audio-script.pt')
+    def script(self):
 
+        mediaelementandplayer.need()
+
+        return {}
+
+
+@view_defaults(context=Video,
+               permission='view')
 class VideoView(BaseView):
 
-    @view_config(context=Video,
-                 name='view',
-                 permission='view',
+    @view_config(name='view',
                  renderer='kotti_media:templates/video-view.pt')
     def view(self):
 
-        mediaelementandplayer.need()
+        return {}
+
+    @view_config(name='element',
+                 renderer='kotti_media:templates/video-element.pt')
+    def element(self):
 
         result = {}
 
@@ -75,6 +92,14 @@ class VideoView(BaseView):
 
         return result
 
+    @view_config(name='script',
+                 renderer='kotti_media:templates/video-script.pt')
+    def script(self):
+
+        mediaelementandplayer.need()
+
+        return {}
+
 
 class MediaFolderView(BaseView):
 
@@ -84,9 +109,9 @@ class MediaFolderView(BaseView):
                  renderer="kotti_media:templates/media-folder-view.pt")
     def view(self):
 
-        media = [c for c in self.context.children if c.type in (Audio, Video)]
+        media = [c for c in self.context.children if c.type in ("audio", "video")]
         result = {
-            media: media,
+            "media": media,
         }
 
         return result

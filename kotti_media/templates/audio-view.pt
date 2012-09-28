@@ -12,14 +12,9 @@
         <p tal:replace="structure context.body"></p>
       </div>
       <div class="span6">
-        <audio tal:replace="api.render_template('kotti_media:templates/audio-element.pt',
-                                                 poster_url=poster_url,
-                                                 m4a_url=m4a_url,
-                                                 mp3_url=mp3_url,
-                                                 oga_url=oga_url,
-                                                 wav_url=wav_url)" />
+        <audio tal:replace="api.render_view('element')" />
       </div>
     </div>
-    <script tal:replace="api.render_template('kotti_media:templates/audio-script.pt')" />
+    <script tal:replace="api.render_view('script')" />
   </article>
 </html>
