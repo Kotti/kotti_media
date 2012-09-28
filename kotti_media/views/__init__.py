@@ -85,7 +85,9 @@ class MediaFolderView(BaseView):
     def view(self):
 
         media = [c for c in self.context.children if c.type in (Audio, Video)]
-        result = {}
+        result = {
+            media: media,
+        }
 
         return result
 

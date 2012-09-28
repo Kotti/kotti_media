@@ -12,7 +12,7 @@
         <p tal:replace="structure context.body"></p>
       </div>
       <div class="span6">
-        <video tal:replace="api.render_template('kotti_media:templates/video_element.pt',
+        <video tal:replace="api.render_template('kotti_media:templates/video-element.pt',
                                                  poster_url=poster_url,
                                                  mp4_url=mp4_url,
                                                  webm_url=webm_url,
@@ -21,6 +21,6 @@
                                                  chapters_url=chapters_url)" />
       </div>
     </div>
-    <script tal:replace="api.render_template('kotti_media:templates/video_script.pt')" />
+    <script tal:replace="api.render_template('kotti_media:templates/video-script.pt')" />
   </article>
 </html>

@@ -21,5 +21,6 @@
       </div>
     </div>
     <script tal:replace="api.render_template('kotti_media:templates/audio-script.pt')" />
+    <script tal:replace="api.render_template('kotti_media:templates/video-script.pt')" />
   </article>
 </html>
