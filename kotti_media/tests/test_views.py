@@ -29,7 +29,7 @@ class ViewsTests(UnitTestBase):
         root = get_root()
         audio = root['audio'] = Audio()
 
-        view = AudioView(audio, DummyRequest()).view()
+        view = AudioView(audio, DummyRequest()).element()
 
         assert ('m4a_url' in view) and (view['m4a_url'] is None)
         assert ('mp3_url' in view) and (view['mp3_url'] is None)
@@ -43,7 +43,7 @@ class ViewsTests(UnitTestBase):
         audio['wav'] = WavFile()
         audio['poster'] = Image()
 
-        view = AudioView(audio, DummyRequest()).view()
+        view = AudioView(audio, DummyRequest()).element()
 
         assert ('m4a_url' in view) and (view['m4a_url'] is None)
         assert ('mp3_url' in view) and (view['mp3_url'] is None)
@@ -57,7 +57,7 @@ class ViewsTests(UnitTestBase):
         audio['wav'].data = open(os.path.join(here, "distortion.wav")).read()
         audio['poster'].data = open(os.path.join(here, "distortion.png")).read()
 
-        view = AudioView(audio, DummyRequest()).view()
+        view = AudioView(audio, DummyRequest()).element()
 
         assert ('m4a_url' in view) and (view['m4a_url'] == 'http://example.com/audio/m4a/@@attachment-view')
         assert ('mp3_url' in view) and (view['mp3_url'] == 'http://example.com/audio/mp3/@@attachment-view')
@@ -70,7 +70,7 @@ class ViewsTests(UnitTestBase):
         root = get_root()
         video = root['video'] = Video()
 
-        view = VideoView(video, DummyRequest()).view()
+        view = VideoView(video, DummyRequest()).element()
 
         assert ('mp4_url' in view) and (view['mp4_url'] is None)
         assert ('ogv_url' in view) and (view['ogv_url'] is None)
@@ -86,7 +86,7 @@ class ViewsTests(UnitTestBase):
         video['chapters'] = ChaptersFile()
         video['poster'] = Image()
 
-        view = VideoView(video, DummyRequest()).view()
+        view = VideoView(video, DummyRequest()).element()
 
         assert ('mp4_url' in view) and (view['mp4_url'] is None)
         assert ('ogv_url' in view) and (view['ogv_url'] is None)
@@ -102,7 +102,7 @@ class ViewsTests(UnitTestBase):
         video['chapters'].data = open(os.path.join(here, "distortion.srt")).read()
         video['poster'].data = open(os.path.join(here, "distortion.png")).read()
 
-        view = VideoView(video, DummyRequest()).view()
+        view = VideoView(video, DummyRequest()).element()
 
         assert ('mp4_url' in view) and (view['mp4_url'] == 'http://example.com/video/mp4/@@attachment-view')
         assert ('ogv_url' in view) and (view['ogv_url'] == 'http://example.com/video/ogv/@@attachment-view')
