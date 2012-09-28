@@ -176,8 +176,8 @@ Delete the M4A and add it with external_url *only* again
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> browser.url
-  'http://localhost:6543/my-audio/external_distortion.m4a/'
+  >>> browser.url == testing.BASE_URL + '/my-audio/external_distortion.m4a/'
+  True
 
 Edit the M4A
 

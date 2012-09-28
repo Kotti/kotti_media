@@ -166,7 +166,9 @@ class EditMediaFileFormView(EditFileFormView):
             self.context.mimetype = None
             self.context.size = None
             self.context.external_url = appstruct['external_url']
-        else:
+        else:  # pragma: no cover
+            # can't find a way to test this, so maybe we never get here
+            # let's still leave it as a safety belt
             self.context.external_url = None
 
 
