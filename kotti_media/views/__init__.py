@@ -59,6 +59,8 @@ default_player_options = {
 
 class PlayerOptionsSchema(MappingSchema):
 
+    defaultVideoWidth = SchemaNode(Integer(), title=_("Default video width"))
+    defaultVideoHeight = SchemaNode(Integer(), title=_("Default video height"))
     videoWidth = SchemaNode(Integer(), title=_("Video width"))
     videoHeight = SchemaNode(Integer(), title=_("Video height"))
     audioWidth = SchemaNode(Integer(), title=_("Audio width"))
@@ -102,7 +104,10 @@ class BaseView(object):
             return None
         else:
             if file.data:
-                return resource_url(file, self.request, "@@attachment-view")
+                if t == 'poster':
+                    return resource_url(file, self.request, "image")
+                else:
+                    return resource_url(file, self.request, "@@attachment-view")
             else:
                 return getattr(file, "external_url", None)
 
