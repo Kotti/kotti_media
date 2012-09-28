@@ -17,6 +17,7 @@ from kotti_media.resources import Video
 from kotti_media.resources import WavFile
 from kotti_media.resources import WebmFile
 from kotti_media.views import AudioView
+from kotti_media.views import MediaFolderView
 from kotti_media.views import VideoView
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -110,3 +111,12 @@ class ViewsTests(UnitTestBase):
         assert ('subtitles_url' in view) and (view['subtitles_url'] == 'http://example.com/video/subs/@@attachment-view')
         assert ('chapters_url' in view) and (view['chapters_url'] == 'http://example.com/video/chapters/@@attachment-view')
         assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/video/poster/@@attachment-view')
+
+    def test_media_folder_view(self):
+
+        root = get_root()
+        audio = root['audio'] = Audio()
+        video = root['video'] = Video()
+        view = MediaFolderView(root, DummyRequest()).view()
+
+        assert view == {'media': [audio, video, ]}
