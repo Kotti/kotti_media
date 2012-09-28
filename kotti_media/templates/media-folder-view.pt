@@ -14,7 +14,6 @@
         <media tal:replace="api.render_view('element', context=m)" />
       </div>
     </div>
-    <script tal:replace="api.render_template('kotti_media:templates/audio-script.pt')" />
-    <script tal:replace="api.render_template('kotti_media:templates/video-script.pt')" />
+    <script tal:replace="api.render_view('script')" />
   </article>
 </html>
