@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from kotti.resources import Image
+
 log = logging.getLogger(__name__)
 
 
@@ -20,3 +22,6 @@ def kotti_configure(settings):
     settings['kotti.available_types'] += ' kotti_media.resources.OgvFile'
     settings['kotti.available_types'] += ' kotti_media.resources.SubtitlesFile'
     settings['kotti.available_types'] += ' kotti_media.resources.WebmFile'
+
+    Image.type_info.addable_to.append("Audio")
+    Image.type_info.addable_to.append("Video")
