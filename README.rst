@@ -52,7 +52,7 @@ This follows the highly recommended `A successful Git branching model`_ pattern,
 Testing
 -------
 
-[![Build Status](https://secure.travis-ci.org/disko/kotti_media.png)](http://travis-ci.org/disko/kotti_media)
+|build status|_
 
 ``kotti_media`` has 100% test coverage.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
@@ -64,3 +64,5 @@ Running the test suite is as easy as running ``py.test`` from the source directo
 .. _gitflow: https://github.com/nvie/gitflow
 .. _A successful Git branching model: http://nvie.com/posts/a-successful-git-branching-model/
 .. _MediaElementJS: http://mediaelementjs.com/
+.. |build status| image:: https://secure.travis-ci.org/disko/kotti_media.png?branch=master
+.. _build status: http://travis-ci.org/disko/kotti_media

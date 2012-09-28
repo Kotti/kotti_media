@@ -14,6 +14,10 @@ try:
 except IOError:
     TODO = ''
 try:
+    AUTHORS = open(os.path.join(here, 'AUTHORS.txt')).read()
+except IOError:
+    AUTHORS = ''
+try:
     CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 except IOError:
     CHANGES = ''
@@ -32,7 +36,7 @@ tests_require = ['pytest',
 setup(name='kotti_media',
       version=version,
       description='Add media content to your Kotti site',
-      long_description=README + '\n\n' + TODO + '\n\n' + CHANGES,
+      long_description=README + '\n\n' + TODO + '\n\n' + AUTHORS + '\n\n' + CHANGES,
       classifiers=['Programming Language :: Python',
                    'Framework :: Pylons',
                    'Topic :: Internet :: WWW/HTTP',
