@@ -16,5 +16,7 @@
       </div>
     </div>
     <script tal:replace="api.render_view('script')" />
+    <div tal:condition="can_edit_player_options"
+         tal:content="api.render_template('kotti_media:templates/edit-player-options.pt')" />
   </article>
 </html>

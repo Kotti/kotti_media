@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from colander import Boolean
+from colander import Float
+from colander import Integer
 from colander import MappingSchema
+from colander import SchemaNode
+from deform import Button
+from deform import ValidationFailure
 from copy import copy
+from deform import Form
 from js.mediaelement import mediaelementandplayer
 from json import dumps
 from kotti.resources import Document
@@ -10,8 +17,10 @@ from kotti.security import has_permission
 from kotti_media.resources import Audio
 from kotti_media.resources import MediaContentBase
 from kotti_media.resources import Video
+from kotti_media.static import kotti_media_js
 from pyramid.i18n import TranslationStringFactory
 from pyramid.url import resource_url
+from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
@@ -50,7 +59,24 @@ default_player_options = {
 
 class PlayerOptionsSchema(MappingSchema):
 
-    pass
+    videoWidth = SchemaNode(Integer(), title=_("Video width"))
+    videoHeight = SchemaNode(Integer(), title=_("Video height"))
+    audioWidth = SchemaNode(Integer(), title=_("Audio width"))
+    audioHeight = SchemaNode(Integer(), title=_("Audio height"))
+    startVolume = SchemaNode(Float(), title=_("Start volume"))
+    loop = SchemaNode(Boolean(), title=_("Loop"))
+    enableAutosize = SchemaNode(Boolean(), title=_("Enable autosize"))
+    # features
+    alwaysShowControls = SchemaNode(Boolean(), title=_("Always show controls"))
+    iPadUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on iPad"))
+    iPhoneUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on iPhone"))
+    AndroidUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on Android"))
+    alwaysShowHours = SchemaNode(Boolean(), title=_("Always show hours"))
+    showTimecodeFrameCount = SchemaNode(Boolean(), title=_("Show timecode frame count"))
+    framesPerSecond = SchemaNode(Integer(), title=_("Frames per second"))
+    enableKeyboard = SchemaNode(Boolean(), title=_("Enable keyboard"))
+    pauseOtherPlayers = SchemaNode(Boolean(), title=_("Pause other players"))
+    # keyActions
 
 
 @view_defaults(context=MediaContentBase,
@@ -61,6 +87,9 @@ class BaseView(object):
 
         self.context = context
         self.request = request
+
+        if has_permission("edit", self.context, self.request):
+            kotti_media_js.need()
 
     def make_url(self, t, context=None):
 
@@ -96,6 +125,32 @@ class BaseView(object):
 
         return {"options": dumps(self.options)}
 
+    @view_config(name="player_options")
+    def player_options(self):
+
+        schema = PlayerOptionsSchema()
+        form = Form(
+            schema,
+            action="%s/player_options" % self.request.resource_url(self.context),
+            buttons=(
+                Button(name='save', title=_("Save")),
+            )
+        )
+        post = self.request.POST
+        if "save" not in post:
+            return Response(form.render(self.options))
+
+        try:
+            validated = form.validate(post.items())
+        except ValidationFailure, e:
+            return Response(e.render())
+
+        self.context.annotations.update(validated)
+
+        result = form.render(self.options)
+        result += "<script>edit_player_options_success = true;$('.modal').modal('hide');window.location.reload();</script>"
+        return Response(result)
+
 
 @view_defaults(context=Audio,
                permission='view')
@@ -105,7 +160,9 @@ class AudioView(BaseView):
                  renderer='kotti_media:templates/audio-view.pt')
     def view(self):
 
-        return {}
+        return {
+            "can_edit_player_options": has_permission("edit", self.context, self.request),
+        }
 
     @view_config(name='element',
                  renderer='kotti_media:templates/audio-element.pt')
@@ -129,7 +186,9 @@ class VideoView(BaseView):
                  renderer='kotti_media:templates/video-view.pt')
     def view(self):
 
-        return {}
+        return {
+            "can_edit_player_options": has_permission("edit", self.context, self.request),
+        }
 
     @view_config(name='element',
                  renderer='kotti_media:templates/video-element.pt')
@@ -158,6 +217,7 @@ class MediaFolderView(BaseView):
                  and has_permission("view", self.context, self.request)]
         result = {
             "media": media,
+            "can_edit_player_options": has_permission("edit", self.context, self.request),
         }
 
         return result
