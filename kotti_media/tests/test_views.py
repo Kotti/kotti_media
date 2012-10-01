@@ -19,6 +19,7 @@ from kotti_media.resources import WebmFile
 from kotti_media.views import AudioView
 from kotti_media.views import default_player_options
 from kotti_media.views import MediaFolderView
+from kotti_media.views import PlayerOptionsSchema
 from kotti_media.views import VideoView
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -123,7 +124,7 @@ class ViewsTests(UnitTestBase):
         assert 'media' in view and view['media'] == [audio, video, ]
         assert 'can_edit_player_options' in view
 
-    def test_player_options(self):
+    def test_options(self):
 
         root = get_root()
         audio = root['audio'] = Audio()
@@ -144,3 +145,29 @@ class ViewsTests(UnitTestBase):
 
         options = AudioView(audio, DummyRequest()).options
         assert options["videoWidth"] == 100
+
+    def test_player_options(self):
+
+        root = get_root()
+        audio = root['audio'] = Audio()
+
+        # test GET
+        player_options = AudioView(audio, DummyRequest()).player_options()
+        assert player_options.body.find("<form") > -1
+        assert player_options.body.find('action="http://example.com/audio/player_options"') > -1
+
+        # test POST with missing parameters
+        post_request = DummyRequest()
+        post_request.POST = {'save': 'save'}
+        player_options = AudioView(audio, post_request).player_options()
+        assert player_options.body.find("Errors have been highlighted below") > -1
+
+        # test POST with all parameters
+        post_request = DummyRequest()
+        post_request.POST = default_player_options
+        post_request.POST = PlayerOptionsSchema().serialize(post_request.POST)
+        post_request.POST.update({'save': 'save'})
+        player_options = AudioView(audio, post_request).player_options()
+        assert player_options.body.find("edit_player_options_success = true") > -1
+
+        #import pdb; pdb.set_trace()

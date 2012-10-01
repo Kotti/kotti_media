@@ -133,7 +133,9 @@ class BaseView(object):
 
         schema = PlayerOptionsSchema()
         action = self.request.resource_url(self.context)
-        if not action.endswith('/'):
+        if not action.endswith('/'):  # pragma: no cover
+            # don't know ho to test this in unit tests.
+            # don't feel like setting up a browser test for this.
             action += '/'
         action += 'player_options'
         form = Form(
