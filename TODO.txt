@@ -1,6 +1,5 @@
 TODO
 ====
 
-- extend browser tests
+- add i18n
 - add/verify support for subtitles and chapter marks
-- add poster file handling

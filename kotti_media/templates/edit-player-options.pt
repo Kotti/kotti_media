@@ -1,0 +1,12 @@
+<p>
+  <div id="player_options_modal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Player Options</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+  </div>
+  <a id="edit_player_options" class="btn" href="player_options">Edit player options</a>
+</p>

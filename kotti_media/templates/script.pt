@@ -1,0 +1,5 @@
+<script>
+  $(function(){
+    $('audio,video').mediaelementplayer(${options});
+  });
+</script>

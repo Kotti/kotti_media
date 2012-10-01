@@ -17,7 +17,9 @@ from kotti_media.resources import Video
 from kotti_media.resources import WavFile
 from kotti_media.resources import WebmFile
 from kotti_media.views import AudioView
+from kotti_media.views import default_player_options
 from kotti_media.views import MediaFolderView
+from kotti_media.views import PlayerOptionsSchema
 from kotti_media.views import VideoView
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -64,7 +66,7 @@ class ViewsTests(UnitTestBase):
         assert ('mp3_url' in view) and (view['mp3_url'] == 'http://example.com/audio/mp3/@@attachment-view')
         assert ('oga_url' in view) and (view['oga_url'] == 'http://example.com/audio/oga/@@attachment-view')
         assert ('wav_url' in view) and (view['wav_url'] == 'http://example.com/audio/wav/@@attachment-view')
-        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/audio/poster/@@attachment-view')
+        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/audio/poster/image')
 
     def test_video_view(self):
 
@@ -110,7 +112,7 @@ class ViewsTests(UnitTestBase):
         assert ('webm_url' in view) and (view['webm_url'] == 'http://example.com/video/webm/@@attachment-view')
         assert ('subtitles_url' in view) and (view['subtitles_url'] == 'http://example.com/video/subs/@@attachment-view')
         assert ('chapters_url' in view) and (view['chapters_url'] == 'http://example.com/video/chapters/@@attachment-view')
-        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/video/poster/@@attachment-view')
+        assert ('poster_url' in view) and (view['poster_url'] == 'http://example.com/video/poster/image')
 
     def test_media_folder_view(self):
 
@@ -119,4 +121,53 @@ class ViewsTests(UnitTestBase):
         video = root['video'] = Video()
         view = MediaFolderView(root, DummyRequest()).view()
 
-        assert view == {'media': [audio, video, ]}
+        assert 'media' in view and view['media'] == [audio, video, ]
+        assert 'can_edit_player_options' in view
+
+    def test_options(self):
+
+        root = get_root()
+        audio = root['audio'] = Audio()
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options == default_player_options
+
+        audio.annotations = {
+            "foo": "bar",
+        }
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options == default_player_options
+
+        audio.annotations = {
+            "videoWidth": 100,
+        }
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options["videoWidth"] == 100
+
+    def test_player_options(self):
+
+        root = get_root()
+        audio = root['audio'] = Audio()
+
+        # test GET
+        player_options = AudioView(audio, DummyRequest()).player_options()
+        assert player_options.body.find("<form") > -1
+        assert player_options.body.find('action="http://example.com/audio/player_options"') > -1
+
+        # test POST with missing parameters
+        post_request = DummyRequest()
+        post_request.POST = {'save': 'save'}
+        player_options = AudioView(audio, post_request).player_options()
+        assert player_options.body.find("Errors have been highlighted below") > -1
+
+        # test POST with all parameters
+        post_request = DummyRequest()
+        post_request.POST = default_player_options
+        post_request.POST = PlayerOptionsSchema().serialize(post_request.POST)
+        post_request.POST.update({'save': 'save'})
+        player_options = AudioView(audio, post_request).player_options()
+        assert player_options.body.find("edit_player_options_success = true") > -1
+
+        #import pdb; pdb.set_trace()
