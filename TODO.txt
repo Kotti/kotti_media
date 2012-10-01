@@ -1,4 +1,5 @@
 TODO
 ====
 
+- add i18n
 - add/verify support for subtitles and chapter marks
