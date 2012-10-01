@@ -1,5 +1,4 @@
 TODO
 ====
 
-- add test for player_options
 - add/verify support for subtitles and chapter marks
