@@ -15,7 +15,6 @@ from json import dumps
 from kotti.resources import Document
 from kotti.security import has_permission
 from kotti_media.resources import Audio
-from kotti_media.resources import MediaContentBase
 from kotti_media.resources import Video
 from kotti_media.static import kotti_media_js
 from pyramid.i18n import TranslationStringFactory

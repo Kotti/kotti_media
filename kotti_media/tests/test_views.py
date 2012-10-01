@@ -17,6 +17,7 @@ from kotti_media.resources import Video
 from kotti_media.resources import WavFile
 from kotti_media.resources import WebmFile
 from kotti_media.views import AudioView
+from kotti_media.views import default_player_options
 from kotti_media.views import MediaFolderView
 from kotti_media.views import VideoView
 
@@ -121,3 +122,25 @@ class ViewsTests(UnitTestBase):
 
         assert 'media' in view and view['media'] == [audio, video, ]
         assert 'can_edit_player_options' in view
+
+    def test_player_options(self):
+
+        root = get_root()
+        audio = root['audio'] = Audio()
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options == default_player_options
+
+        audio.annotations = {
+            "foo": "bar",
+        }
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options == default_player_options
+
+        audio.annotations = {
+            "videoWidth": 100,
+        }
+
+        options = AudioView(audio, DummyRequest()).options
+        assert options["videoWidth"] == 100
