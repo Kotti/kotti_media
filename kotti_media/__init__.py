@@ -8,7 +8,7 @@ log = logging.getLogger(__name__)
 
 def kotti_configure(settings):
 
-    settings['kotti.includes'] += ' kotti_media.views'
+    settings['pyramid.includes'] += ' kotti_media.views'
 
     settings['kotti.available_types'] += ' kotti_media.resources.Audio'
     settings['kotti.available_types'] += ' kotti_media.resources.M4aFile'
