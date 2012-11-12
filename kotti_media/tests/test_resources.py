@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from kotti import testing
 from kotti.resources import Image
 from kotti.resources import get_root
 from kotti.testing import DummyRequest
