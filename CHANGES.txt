@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+0.5
+---
+
+-   Upgrade to Kotti>=0.8.  This breaks backward compatibility.  Pin
+    kotti_media to "<0.5dev" if you are on Kotti 0.7.x.
+
 0.4
 ---
 

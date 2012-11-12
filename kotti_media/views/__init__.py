@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from copy import copy
+from json import dumps
+
 from colander import Boolean
 from colander import Float
 from colander import Integer
 from colander import MappingSchema
 from colander import SchemaNode
 from deform import Button
-from deform import ValidationFailure
-from copy import copy
 from deform import Form
+from deform import ValidationFailure
 from js.mediaelement import mediaelementandplayer
-from json import dumps
 from kotti.resources import Document
 from kotti.security import has_permission
+from pyramid.i18n import TranslationStringFactory
+from pyramid.response import Response
+from pyramid.url import resource_url
+from pyramid.view import view_config
+from pyramid.view import view_defaults
+
 from kotti_media.resources import Audio
 from kotti_media.resources import Video
 from kotti_media.static import kotti_media_js
-from pyramid.i18n import TranslationStringFactory
-from pyramid.url import resource_url
-from pyramid.response import Response
-from pyramid.view import view_config
-from pyramid.view import view_defaults
 
 _ = TranslationStringFactory('kotti_media')
 log = logging.getLogger(__name__)
@@ -234,7 +236,4 @@ class MediaFolderView(BaseView):
 
 def includeme(config):
 
-    import forms
-
-    forms.includeme(config)
-    config.scan("kotti_media")
+    config.scan(__name__)

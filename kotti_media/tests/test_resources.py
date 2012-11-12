@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from kotti.resources import get_root
 from kotti.resources import Image
+from kotti.resources import get_root
 from kotti.testing import DummyRequest
 from kotti.testing import UnitTestBase
+
 from kotti_media.resources import Audio
+from kotti_media.resources import ChaptersFile
 from kotti_media.resources import M4aFile
 from kotti_media.resources import Mp3File
-from kotti_media.resources import OgaFile
-from kotti_media.resources import WavFile
-from kotti_media.resources import Video
 from kotti_media.resources import Mp4File
+from kotti_media.resources import OgaFile
 from kotti_media.resources import OgvFile
-from kotti_media.resources import WebmFile
-from kotti_media.resources import ChaptersFile
 from kotti_media.resources import SubtitlesFile
+from kotti_media.resources import Video
+from kotti_media.resources import WavFile
+from kotti_media.resources import WebmFile
 
 
 class ResourcesTests(UnitTestBase):

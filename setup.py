@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.4'
+version = '0.5'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,7 +26,7 @@ development_requires = [
     'minify',
 ]
 install_requires = [
-    'Kotti>=0.7',
+    'Kotti>=0.8dev',
     'js.jquery_form',
     'js.mediaelement',
 ]

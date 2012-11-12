@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-from kotti.resources import get_root
+
 from kotti.resources import Image
+from kotti.resources import get_root
 from kotti.testing import DummyRequest
 from kotti.testing import UnitTestBase
+
 from kotti_media.resources import Audio
 from kotti_media.resources import ChaptersFile
 from kotti_media.resources import M4aFile
@@ -17,10 +19,10 @@ from kotti_media.resources import Video
 from kotti_media.resources import WavFile
 from kotti_media.resources import WebmFile
 from kotti_media.views import AudioView
-from kotti_media.views import default_player_options
 from kotti_media.views import MediaFolderView
 from kotti_media.views import PlayerOptionsSchema
 from kotti_media.views import VideoView
+from kotti_media.views import default_player_options
 
 here = os.path.abspath(os.path.dirname(__file__))
 
