@@ -43,6 +43,7 @@ def MediaFileSchema(tmpstore, title_missing=None):
     class MediaFileSchema(ContentSchema):
         file = SchemaNode(
             FileData(),
+            missing=null,
             title=_(u'File'),
             widget=FileUploadWidget(tmpstore),
             validator=validate_file_size_limit
