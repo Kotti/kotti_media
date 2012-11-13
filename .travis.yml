@@ -7,7 +7,7 @@ env:
   - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
   - KOTTI_TEST_DB_STRING=sqlite://
 install:
-  - pip install https://github.com/disko/kotti/tarball/pytest_plugin
+  - pip install https://github.com/Pylons/kotti/tarball/master
 #  - pip install -r requirements.txt
   - python setup.py develop
   - python setup.py dev
