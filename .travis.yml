@@ -6,9 +6,11 @@ env:
   - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing
   - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
   - KOTTI_TEST_DB_STRING=sqlite://
+  - KOTTI=master
+  - KOTTI=0.8a1
+  - KOTTI=0.7.2
 install:
-  - pip install https://github.com/Pylons/kotti/tarball/master
-#  - pip install -r requirements.txt
+  - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
   - python setup.py develop
   - python setup.py dev
   - pip install psycopg2 oursql
