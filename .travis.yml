@@ -4,15 +4,16 @@ python:
   - "2.7"
 env:
   - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=master
+  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=master
+  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=master
+  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=0.8a1
   - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=0.8a1
-  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=0.7.2
-  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=master
-  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=0.8a1
-  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=0.7.2
-  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=master
-  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=0.8a1
+  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=0.8a1
+  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=0.7.2
+  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=0.7.2
   - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=0.7.2
 install:
+  - pip install -r https://raw.github.com/Pylons/Kotti/$KOTTI/requirements.txt
   - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
   - python setup.py develop
   - python setup.py dev
