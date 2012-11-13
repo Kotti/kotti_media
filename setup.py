@@ -30,15 +30,6 @@ install_requires = [
     'js.jquery_form',
     'js.mediaelement',
 ]
-tests_require = [
-    'pytest',
-    'pytest-cov',
-    'pytest-pep8',
-    'pytest-xdist',
-    'WebTest',
-    'wsgi_intercept',
-    'zope.testbrowser',
-]
 
 setup(
     name='kotti_media',
@@ -66,9 +57,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
-    tests_require=tests_require,
     extras_require={
-        'testing': tests_require,
         'development': development_requires,
     },
     message_extractors={
