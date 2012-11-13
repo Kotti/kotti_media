@@ -23,7 +23,7 @@ from pyramid.view import view_defaults
 
 from kotti_media.resources import Audio
 from kotti_media.resources import Video
-from kotti_media.static import kotti_media_js
+from kotti_media.fanstatic import kotti_media_js
 
 _ = TranslationStringFactory('kotti_media')
 log = logging.getLogger(__name__)
@@ -223,8 +223,8 @@ class MediaFolderView(BaseView):
                  renderer="kotti_media:templates/media-folder-view.pt")
     def view(self):
 
-        media = [c for c in self.context.children \
-                 if (c.type in ("audio", "video", )) \
+        media = [c for c in self.context.children
+                 if (c.type in ("audio", "video", ))
                  and has_permission("view", self.context, self.request)]
         result = {
             "media": media,

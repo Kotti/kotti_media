@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+
 from fanstatic import Library
 from fanstatic import Resource
 from js.jquery_form import jquery_form
