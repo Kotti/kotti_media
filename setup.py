@@ -22,9 +22,6 @@ try:
 except IOError:
     CHANGES = ''
 
-development_requires = [
-    'minify',
-]
 install_requires = [
     'Kotti>=0.8dev',
     'js.jquery_form',
@@ -57,9 +54,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
-    extras_require={
-        'development': development_requires,
-    },
+    extras_require={},
     message_extractors={
         'kotti_media': [
             ('**.py', 'lingua_python', None),
