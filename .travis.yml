@@ -3,9 +3,12 @@ python:
   - "2.6"
   - "2.7"
 env:
-  - KOTTI=master KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing
-  - KOTTI=master KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
-  - KOTTI=master KOTTI_TEST_DB_STRING=sqlite://
+  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing
+  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
+  - KOTTI_TEST_DB_STRING=sqlite://
+#  - KOTTI=master KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing
+#  - KOTTI=master KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
+#  - KOTTI=master KOTTI_TEST_DB_STRING=sqlite://
 #  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing
 #  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
 #  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=sqlite://
