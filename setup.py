@@ -35,6 +35,8 @@ setup(
     long_description=README + '\n\n' + TODO + '\n\n' + AUTHORS + '\n\n' + CHANGES,
     classifiers=[
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         'Framework :: Pylons',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
