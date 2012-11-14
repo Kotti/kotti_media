@@ -4,11 +4,11 @@ python:
   - "2.7"
 env:
   - KOTTI=master KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing_master
-  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing_08a1
   - KOTTI=master KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing_master
-  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing_08a1
   - KOTTI=master KOTTI_TEST_DB_STRING=sqlite://
-  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=sqlite://
+#  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing_08a1
+#  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing_08a1
+#  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=sqlite://
 install:
   - pip install -r https://raw.github.com/Pylons/Kotti/$KOTTI/requirements.txt
   - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
