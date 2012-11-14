@@ -15,11 +15,11 @@ env:
 install:
 #  - pip install -r https://raw.github.com/Pylons/Kotti/$KOTTI/requirements.txt
 #  - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
+  - pip install psycopg2 oursql
   - pip install -r https://raw.github.com/Pylons/Kotti/master/requirements.txt
   - pip install http://kottipackages.xo7.de/Kotti-master.tar.gz
   - python setup.py develop
   - python setup.py dev
-  - pip install psycopg2 oursql
 before_script:
   - mysql -e 'create database kotti_testing;'
   - psql -c 'create database kotti_testing;' -U postgres
