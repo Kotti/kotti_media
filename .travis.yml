@@ -3,12 +3,12 @@ python:
   - "2.6"
   - "2.7"
 env:
-  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=master
-  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=master
-  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=master
-  - KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing KOTTI=0.8a1
-  - KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing KOTTI=0.8a1
-  - KOTTI_TEST_DB_STRING=sqlite:// KOTTI=0.8a1
+  - KOTTI=master KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing_master
+  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=postgresql://postgres@localhost:5432/kotti_testing_08a1
+  - KOTTI=master KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing_master
+  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing_08a1
+  - KOTTI=master KOTTI_TEST_DB_STRING=sqlite://
+  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=sqlite://
 install:
   - pip install -r https://raw.github.com/Pylons/Kotti/$KOTTI/requirements.txt
   - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
@@ -16,8 +16,10 @@ install:
   - python setup.py dev
   - pip install psycopg2 oursql
 before_script:
-  - psql -c 'create database kotti_testing;' -U postgres
-  - mysql -e 'create database kotti_testing;'
+  - psql -c 'create database kotti_testing_master;' -U postgres
+  - psql -c 'create database kotti_testing_08a1;' -U postgres
+  - mysql -e 'create database kotti_testing_master;'
+  - mysql -e 'create database kotti_testing_08a1;'
 script: py.test --tb=native --cov=kotti_media --cov-report=term-missing
 notifications:
   irc: "irc.freenode.org#kotti"
