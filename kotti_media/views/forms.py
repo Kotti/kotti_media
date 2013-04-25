@@ -9,8 +9,6 @@ from colander import null
 from deform import FileData
 from deform.widget import FileUploadWidget
 from kotti.views.edit import DocumentSchema
-from kotti.views.edit import make_generic_add
-from kotti.views.edit import make_generic_edit
 from kotti.views.edit.content import DocumentAddForm
 from kotti.views.edit.content import DocumentEditForm
 from kotti.views.edit.content import FileAddForm

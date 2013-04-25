@@ -65,6 +65,6 @@ setup(
         ],
     },
     entry_points={
-        "fanstatic.libraries": ["kotti_media = kotti_media.static:library"],
+        "fanstatic.libraries": ["kotti_media = kotti_media.fanstatic:library"],
     }
 )
