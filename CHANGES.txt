@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.5.1 - 2013-07-12
+------------------
+
+-   Don't check for data if unnecessary as it causes full loading of that
+    column which is particular bad with media files.  This is a huge
+    performance boost on related views.
+
 0.5 - 2013-04-25
 ----------------
 

@@ -93,23 +93,23 @@ class BaseView(object):
         if has_permission("edit", self.context, self.request):
             kotti_media_js.need()
 
-    def make_url(self, t, context=None):
+    def make_url(self, file_type, context=None):
 
         if context is None:
             context = self.context
 
-        file = getattr(context, "%s_file" % t)
+        file = getattr(context, "%s_file" % file_type)
 
         if file is None:
             return None
         else:
-            if file.data:
-                if t == 'poster':
+            if getattr(file, "external_url", None) is not None:
+                return getattr(file, "external_url", None)
+            else:
+                if file_type == 'poster':
                     return resource_url(file, self.request, "image")
                 else:
                     return resource_url(file, self.request, "@@attachment-view")
-            else:
-                return getattr(file, "external_url", None)
 
     @property
     def options(self):
