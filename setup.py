@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-version = '0.6dev'
+version = '0.5.1dev'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -30,11 +30,13 @@ install_requires = [
     'js.mediaelement',
 ]
 
+long_description = README + '\n\n' + TODO + '\n\n' + AUTHORS + '\n\n' + CHANGES
+
 setup(
     name='kotti_media',
     version=version,
     description='Add media content to your Kotti site',
-    long_description=README + '\n\n' + TODO + '\n\n' + AUTHORS + '\n\n' + CHANGES,
+    long_description=long_description,
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
