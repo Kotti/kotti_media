@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-version = '0.5.1'
+version = '0.5.2dev'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
