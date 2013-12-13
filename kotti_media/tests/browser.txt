@@ -33,7 +33,7 @@ Add audio content
   >>> browser.getLink("Audio").click()
   >>> ctrl("Title").value = "My Audio"
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
   >>> browser.url == testing.BASE_URL + '/my-audio/'
   True
@@ -98,7 +98,7 @@ M4A
   >>> browser.getLink("Audio file (*.m4a)").click()
   >>> ctrl("File").add_file(m4a, 'audio/mp4', 'distortion.m4a')
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
 
 MP3
@@ -109,7 +109,7 @@ MP3
   >>> browser.getLink("Audio file (*.mp3)").click()
   >>> ctrl("File").add_file(m4a, 'audio/mp3', 'distortion.mp3')
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
 
 OGA
@@ -120,7 +120,7 @@ OGA
   >>> browser.getLink("Audio file (*.oga)").click()
   >>> ctrl("File").add_file(m4a, 'audio/ogg', 'distortion.oga')
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
 
 WAV
@@ -131,7 +131,7 @@ WAV
   >>> browser.getLink("Audio file (*.wav)").click()
   >>> ctrl("File").add_file(m4a, 'audio/wav', 'distortion.wav')
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
 
 Replace M4A with external URL
@@ -141,7 +141,24 @@ M4A
   >>> browser.open(testing.BASE_URL + '/my-audio/distortion.m4a/@@edit')
   >>> ctrl("External URL").value = "http://binary-punks.com/external_distortion.m4a"
   >>> ctrl("save").click()
-  >>> "Your changes have been saved" in browser.contents
+  >>> "Either a file or an external URL is required, bot not both" in browser.contents
+  True
+
+Delete the M4A and add it with external_url *only* again
+
+  >>> browser.open(testing.BASE_URL + '/my-audio/distortion.m4a/@@delete')
+  >>> ctrl("delete").click()
+  >>> "distortion.m4a was deleted" in browser.contents
+  True
+  >>> browser.open(testing.BASE_URL + '/my-audio/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Audio file (*.m4a)").click()
+  >>> ctrl("save").click()
+  >>> ctrl("External URL").value = "http://binary-punks.com/external_distortion.m4a"
+  >>> ctrl("save").click()
+  >>> "Item was added" in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-audio/external_distortion.m4a/'
   True
 
 Test the audio view again
@@ -160,23 +177,6 @@ Test the audio view again
   >>> '<source type="audio/wav"' in browser.contents
   True
   >>> 'http://binary-punks.com/external_distortion.m4a' in browser.contents
-  True
-
-Delete the M4A and add it with external_url *only* again
-
-  >>> browser.open(testing.BASE_URL + '/my-audio/distortion.m4a/@@delete')
-  >>> ctrl("delete").click()
-  >>> "distortion.m4a deleted" in browser.contents
-  True
-  >>> browser.open(testing.BASE_URL + '/my-audio/')
-  >>> browser.getLink("Add").click()
-  >>> browser.getLink("Audio file (*.m4a)").click()
-  >>> ctrl("save").click()
-  >>> ctrl("External URL").value = "http://binary-punks.com/external_distortion.m4a"
-  >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
-  True
-  >>> browser.url == testing.BASE_URL + '/my-audio/external_distortion.m4a/'
   True
 
 Edit the M4A
@@ -210,7 +210,7 @@ Add video content
   >>> browser.getLink("Video").click()
   >>> ctrl("Title").value = "My Video"
   >>> ctrl("save").click()
-  >>> "Successfully added item" in browser.contents
+  >>> "Item was added" in browser.contents
   True
   >>> browser.url == testing.BASE_URL + '/my-video/'
   True
