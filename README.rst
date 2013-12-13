@@ -44,11 +44,6 @@ Development
 Contributions to ``kotti_media`` are highly welcome.
 Just clone its `Github repository`_ and submit your contributions as pull requests.
 
-Note that all development is done on the ``develop`` branch and ``master`` is reserved for "production-ready state".
-Therefore make sure to always base your work on the current state of the ``develop`` branch.
-
-This follows the highly recommended `A successful Git branching model`_ pattern, which is implemented by the excellent `gitflow`_ git extension.
-
 Testing
 -------
 
