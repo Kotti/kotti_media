@@ -163,7 +163,8 @@ class BaseView(object):
                 if file_type == 'poster':
                     return resource_url(file, self.request, "image")
                 else:
-                    return resource_url(file, self.request, "@@attachment-view")
+                    return resource_url(
+                        file, self.request, "@@attachment-view")
 
     @property
     def options(self):
@@ -214,7 +215,8 @@ class BaseView(object):
 
         result = form.render(self.options)
         result += "<script>edit_player_options_success = true;" \
-                  "$('.modal').modal('hide');window.location.reload();</script>"
+                  "$('.modal').modal('hide');window.location.reload();" \
+                  "</script>"
         return Response(result)
 
 

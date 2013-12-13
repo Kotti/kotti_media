@@ -84,7 +84,8 @@ class M4aFile(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(M4aFile, self).__init__(data=data, filename="audio.m4a",
-                                      mimetype="audio/mp4", size=size, **kwargs)
+                                      mimetype="audio/mp4", size=size,
+                                      **kwargs)
 
 
 class Mp3File(MediaFile):
@@ -99,7 +100,8 @@ class Mp3File(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(Mp3File, self).__init__(data=data, filename="audio.mp3",
-                                      mimetype="audio/mp3", size=size, **kwargs)
+                                      mimetype="audio/mp3", size=size,
+                                      **kwargs)
 
 
 class OgaFile(MediaFile):
@@ -114,7 +116,8 @@ class OgaFile(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(OgaFile, self).__init__(data=data, filename="audio.oga",
-                                      mimetype="audio/ogg", size=size, **kwargs)
+                                      mimetype="audio/ogg", size=size,
+                                      **kwargs)
 
 
 class WavFile(MediaFile):
@@ -129,7 +132,8 @@ class WavFile(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(WavFile, self).__init__(data=data, filename="audio.wav",
-                                      mimetype="audio/wav", size=size, **kwargs)
+                                      mimetype="audio/wav", size=size,
+                                      **kwargs)
 
 
 ###############
@@ -149,7 +153,8 @@ class Mp4File(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(Mp4File, self).__init__(data=data, filename="video.mp4",
-                                      mimetype="video/mp4", size=size, **kwargs)
+                                      mimetype="video/mp4", size=size,
+                                      **kwargs)
 
 
 class OgvFile(MediaFile):
@@ -164,7 +169,8 @@ class OgvFile(MediaFile):
     def __init__(self, data=None, filename=None, mimetype=None, size=None,
                  **kwargs):
         super(OgvFile, self).__init__(data=data, filename="video.ogv",
-                                      mimetype="video/ogg", size=size, **kwargs)
+                                      mimetype="video/ogg", size=size,
+                                      **kwargs)
 
 
 class WebmFile(MediaFile):
