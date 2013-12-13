@@ -28,6 +28,8 @@ The line in your ``[app:main]`` section could then look like this::
 
 With this, you'll be able to add video and audio items in your site. Video and Audio content types are containers, into which you add specific media file types.
 
+In your settings file, set kotti_media.asset_overrides to a list of asset specifications. This allows you to set up a directory in your package that will mirror kotti_media’s own and that allows you to override kotti_media’s templates on a case by case basis.
+
 
 Work in progress
 ================
