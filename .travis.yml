@@ -27,5 +27,5 @@ script: py.test --tb=native --cov=kotti_media --cov-report=term-missing
 after_script:
   - mysql -e 'drop database kotti_testing;'
   - psql -c 'drop database kotti_testing;' -U postgres
-#notifications:
-#  irc: "irc.freenode.org#kotti"
+notifications:
+ irc: "irc.freenode.org#kotti"
