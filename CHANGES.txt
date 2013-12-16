@@ -4,55 +4,55 @@ CHANGES
 0.5.2dev - unreleased
 ---------------------
 
--   Enable overriding of assets using kotti_media.asset_overrides 
-    configuration variable
+- Enable overriding of assets using kotti_media.asset_overrides
+  configuration variable.  [cazino]
 
 0.5.1 - 2013-07-12
 ------------------
 
--   Don't check for data if unnecessary as it causes full loading of that
-    column which is particular bad with media files.  This is a huge
-    performance boost on related views.
+- Don't check for data if unnecessary as it causes full loading of that
+  column which is particular bad with media files.  This is a huge
+  performance boost on related views.
 
 0.5 - 2013-04-25
 ----------------
 
--   Upgrade to Kotti>=0.8.  This breaks backward compatibility.  Pin
-    kotti_media to "<0.5dev" if you are on Kotti 0.7.x.
+- Upgrade to Kotti>=0.8.  This breaks backward compatibility.  Pin
+  kotti_media to "<0.5dev" if you are on Kotti 0.7.x.
 
--   Use Kotti's pytest plugin.
+- Use Kotti's pytest plugin.
 
 0.4
 ---
 
--   Make player options user configurable.
+- Make player options user configurable.
 
 0.3.2
 -----
 
--   Bugfix: respect permissions when iterating over children in
-    media_folder_view
+- Bugfix: respect permissions when iterating over children in
+  media_folder_view
 
 0.3.1
 -----
 
--   Fix documentation.
+- Fix documentation.
 
 0.3
 ---
 
--   Rename package to kotti_media (was: kotti_video).
--   Add tests (100% coverage from now on).
--   Add audio support.
--   Add external URL support for CDN storage / delivery of file data.
--   Add ``media_folder_view`` for context ``kotti.resources.Document``.
+- Rename package to kotti_media (was: kotti_video).
+- Add tests (100% coverage from now on).
+- Add audio support.
+- Add external URL support for CDN storage / delivery of file data.
+- Add ``media_folder_view`` for context ``kotti.resources.Document``.
 
 0.2
 ---
 
--   Release for Kotti >= 0.7dev.
+- Release for Kotti >= 0.7dev.
 
 0.1
 ---
 
--   Initial release.
+- Initial release.
