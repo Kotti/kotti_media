@@ -4,7 +4,8 @@ CHANGES
 0.5.2dev - unreleased
 ---------------------
 
--   No changes yet.
+-   Enable overriding of assets using kotti_media.asset_overrides 
+    configuration variable
 
 0.5.1 - 2013-07-12
 ------------------

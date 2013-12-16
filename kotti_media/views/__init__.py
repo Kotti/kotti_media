@@ -295,5 +295,12 @@ class MediaFolderView(BaseView):
 
 
 def includeme(config):
-
+    settings = config.get_settings()
+    if 'kotti_media.asset_overrides' in settings:
+        for override in \
+            [a.strip() for a in settings['kotti_media.asset_overrides'].split()
+             if a.strip()]:
+            config.override_asset(
+                to_override='kotti_media',
+                override_with=override)
     config.scan(__name__)
