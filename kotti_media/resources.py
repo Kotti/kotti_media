@@ -18,10 +18,10 @@ from sqlalchemy import String
 class MediaFileTypeInfo(TypeInfo):
 
     def addable(self, context, request):
-        """Return True if
+        """ Return True if
             - the type described in 'self' may be added  *and*
             - no other child of the same type has already be added
-           to 'context'."""
+        to 'context'."""
 
         if view_permitted(context, request, self.add_view):
             addable = context.type_info.name in self.addable_to
@@ -58,9 +58,9 @@ generic_audio_file_type_info = MediaFileTypeInfo(
 
 
 class MediaFile(File):
-    """This is an 'abstract' base class for all media files that adds
-       an external URL attribute to to files to allow them to be served
-       from a CDN instead of storing the file data in Kotti's DB."""
+    """ This is an 'abstract' base class for all media files that adds
+    an external URL attribute to to files to allow them to be served
+    from a CDN instead of storing the file data in Kotti's DB."""
 
     id = Column(Integer(), ForeignKey('files.id'), primary_key=True)
 
