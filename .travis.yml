@@ -13,10 +13,10 @@ env:
 #  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=mysql+oursql://root@localhost:3306/kotti_testing
 #  - KOTTI=0.8a1 KOTTI_TEST_DB_STRING=sqlite://
 install:
-#  - pip install -r https://raw.github.com/Pylons/Kotti/$KOTTI/requirements.txt
+#  - pip install -r https://raw.github.com/Kotti/Kotti/$KOTTI/requirements.txt
 #  - pip install http://kottipackages.xo7.de/Kotti-$KOTTI.tar.gz
   - pip install psycopg2 oursql
-  - pip install -r https://raw.github.com/Pylons/Kotti/master/requirements.txt
+  - pip install -r https://raw.github.com/Kotti/Kotti/master/requirements.txt
   - pip install http://kottipackages.xo7.de/Kotti-master.tar.gz
   - python setup.py develop
   - python setup.py dev
@@ -27,5 +27,5 @@ script: py.test --tb=native --cov=kotti_media --cov-report=term-missing
 after_script:
   - mysql -e 'drop database kotti_testing;'
   - psql -c 'drop database kotti_testing;' -U postgres
-#notifications:
-#  irc: "irc.freenode.org#kotti"
+notifications:
+ irc: "irc.freenode.org#kotti"

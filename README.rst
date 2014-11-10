@@ -28,6 +28,27 @@ The line in your ``[app:main]`` section could then look like this::
 
 With this, you'll be able to add video and audio items in your site. Video and Audio content types are containers, into which you add specific media file types.
 
+In your settings file, set kotti_media.asset_overrides to a list of asset specifications. This allows you to set up a directory in your package that will mirror kotti_media’s own and that allows you to override kotti_media’s templates on a case by case basis.
+
+Usage
+=====
+
+A standard way to use kotti_media is to first creates a Document in your content tree; this document will become the media section of your application. Then you can add childs to your media section by appending audio/video content to it. 
+``kotti_media`` comes with a handy `media_folder_view` that can be used to display your 'media section' Document (that is to display every media attached to it). 
+
+Registration is done like this:
+
+.. code-block:: python
+
+    from kotti.resources import Document
+    from kotti.util import _
+
+    def includeme(config):
+
+        Document.type_info.add_selectable_default_view("media_folder_view",
+                                                       _("Media Folder"))
+
+You will then be able to select that view for your media section Document in the user interface.
 
 Work in progress
 ================
@@ -43,11 +64,6 @@ Development
 
 Contributions to ``kotti_media`` are highly welcome.
 Just clone its `Github repository`_ and submit your contributions as pull requests.
-
-Note that all development is done on the ``develop`` branch and ``master`` is reserved for "production-ready state".
-Therefore make sure to always base your work on the current state of the ``develop`` branch.
-
-This follows the highly recommended `A successful Git branching model`_ pattern, which is implemented by the excellent `gitflow`_ git extension.
 
 Testing
 -------

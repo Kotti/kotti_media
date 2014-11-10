@@ -70,10 +70,13 @@ def MediaFileSchema(tmpstore, title_missing=None):
         if value['external_url'] and value['file']:
             exc = Invalid(
                 form,
-                _(u'Either a file or an external URL is required, bot not both')
+                _(u'Either a file or an external URL is required, bot not '
+                  u'both')
             )
-            exc['file'] = _(u'Must not be supplied if an external URL is supplied')
-            exc['external_url'] = _(u'Must not be supplied if a file is supplied')
+            exc['file'] = _(
+                u'Must not be supplied if an external URL is supplied')
+            exc['external_url'] = _(
+                u'Must not be supplied if a file is supplied')
             raise exc
 
     return MediaFileSchema(after_bind=set_title_missing, validator=validator)

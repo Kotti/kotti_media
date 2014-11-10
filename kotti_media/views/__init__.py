@@ -60,25 +60,79 @@ default_player_options = {
 
 class PlayerOptionsSchema(MappingSchema):
 
-    defaultVideoWidth = SchemaNode(Integer(), title=_("Default video width"))
-    defaultVideoHeight = SchemaNode(Integer(), title=_("Default video height"))
-    videoWidth = SchemaNode(Integer(), title=_("Video width"))
-    videoHeight = SchemaNode(Integer(), title=_("Video height"))
-    audioWidth = SchemaNode(Integer(), title=_("Audio width"))
-    audioHeight = SchemaNode(Integer(), title=_("Audio height"))
-    startVolume = SchemaNode(Float(), title=_("Start volume"))
-    loop = SchemaNode(Boolean(), title=_("Loop"))
-    enableAutosize = SchemaNode(Boolean(), title=_("Enable autosize"))
+    defaultVideoWidth = SchemaNode(
+        Integer(),
+        title=_("Default video width")
+    )
+    defaultVideoHeight = SchemaNode(
+        Integer(),
+        title=_("Default video height")
+    )
+    videoWidth = SchemaNode(
+        Integer(),
+        title=_("Video width")
+    )
+    videoHeight = SchemaNode(
+        Integer(),
+        title=_("Video height")
+    )
+    audioWidth = SchemaNode(
+        Integer(),
+        title=_("Audio width")
+    )
+    audioHeight = SchemaNode(
+        Integer(),
+        title=_("Audio height")
+    )
+    startVolume = SchemaNode(
+        Float(),
+        title=_("Start volume")
+    )
+    loop = SchemaNode(
+        Boolean(),
+        title=_("Loop")
+    )
+    enableAutosize = SchemaNode(
+        Boolean(),
+        title=_("Enable autosize")
+    )
     # features
-    alwaysShowControls = SchemaNode(Boolean(), title=_("Always show controls"))
-    iPadUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on iPad"))
-    iPhoneUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on iPhone"))
-    AndroidUseNativeControls = SchemaNode(Boolean(), title=_("Use native controls on Android"))
-    alwaysShowHours = SchemaNode(Boolean(), title=_("Always show hours"))
-    showTimecodeFrameCount = SchemaNode(Boolean(), title=_("Show timecode frame count"))
-    framesPerSecond = SchemaNode(Integer(), title=_("Frames per second"))
-    enableKeyboard = SchemaNode(Boolean(), title=_("Enable keyboard"))
-    pauseOtherPlayers = SchemaNode(Boolean(), title=_("Pause other players"))
+    alwaysShowControls = SchemaNode(
+        Boolean(),
+        title=_("Always show controls")
+    )
+    iPadUseNativeControls = SchemaNode(
+        Boolean(),
+        title=_("Use native controls on iPad")
+    )
+    iPhoneUseNativeControls = SchemaNode(
+        Boolean(),
+        title=_("Use native controls on iPhone")
+    )
+    AndroidUseNativeControls = SchemaNode(
+        Boolean(),
+        title=_("Use native controls on Android")
+    )
+    alwaysShowHours = SchemaNode(
+        Boolean(),
+        title=_("Always show hours")
+    )
+    showTimecodeFrameCount = SchemaNode(
+        Boolean(),
+        title=_("Show timecode frame count")
+    )
+    framesPerSecond = SchemaNode(
+        Integer(),
+        title=_("Frames per second")
+    )
+    enableKeyboard = SchemaNode(
+        Boolean(),
+        title=_("Enable keyboard")
+    )
+    pauseOtherPlayers = SchemaNode(
+        Boolean(),
+        title=_("Pause other players")
+    )
     # keyActions
 
 
@@ -109,7 +163,8 @@ class BaseView(object):
                 if file_type == 'poster':
                     return resource_url(file, self.request, "image")
                 else:
-                    return resource_url(file, self.request, "@@attachment-view")
+                    return resource_url(
+                        file, self.request, "@@attachment-view")
 
     @property
     def options(self):
@@ -159,7 +214,9 @@ class BaseView(object):
         self.context.annotations.update(validated)
 
         result = form.render(self.options)
-        result += "<script>edit_player_options_success = true;$('.modal').modal('hide');window.location.reload();</script>"
+        result += "<script>edit_player_options_success = true;" \
+                  "$('.modal').modal('hide');window.location.reload();" \
+                  "</script>"
         return Response(result)
 
 
@@ -172,7 +229,8 @@ class AudioView(BaseView):
     def view(self):
 
         return {
-            "can_edit_player_options": has_permission("edit", self.context, self.request),
+            "can_edit_player_options": has_permission(
+                "edit", self.context, self.request),
         }
 
     @view_config(name='element',
@@ -198,7 +256,8 @@ class VideoView(BaseView):
     def view(self):
 
         return {
-            "can_edit_player_options": has_permission("edit", self.context, self.request),
+            "can_edit_player_options": has_permission(
+                "edit", self.context, self.request),
         }
 
     @view_config(name='element',
@@ -228,12 +287,20 @@ class MediaFolderView(BaseView):
                  and has_permission("view", self.context, self.request)]
         result = {
             "media": media,
-            "can_edit_player_options": has_permission("edit", self.context, self.request),
+            "can_edit_player_options": has_permission(
+                "edit", self.context, self.request),
         }
 
         return result
 
 
 def includeme(config):
-
+    settings = config.get_settings()
+    if 'kotti_media.asset_overrides' in settings:
+        for override in \
+            [a.strip() for a in settings['kotti_media.asset_overrides'].split()
+             if a.strip()]:
+            config.override_asset(
+                to_override='kotti_media',
+                override_with=override)
     config.scan(__name__)
