@@ -25,7 +25,7 @@ except IOError:
     CHANGES = ''
 
 install_requires = [
-    'Kotti>=0.8dev',
+    'Kotti>=0.10b1',
     'js.jquery_form',
     'js.mediaelement',
 ]
