@@ -30,7 +30,7 @@ from kotti_media.resources import WebmFile
 lorem = u'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam architecto, voluptatibus explicabo magnam? Hic reprehenderit doloribus modi ipsam blanditiis voluptatibus, placeat error sed, praesentium maiores sit, voluptatum assumenda. Nihil, dolorum!'  # noqa
 
 
-def data(filetype):
+def data(filetype):  # pragma: no cover
 
     f = os.path.join(
         os.path.dirname(__file__),
@@ -40,7 +40,7 @@ def data(filetype):
     return open(f).read()
 
 
-def populate():
+def populate():  # pragma: no cover
 
     kotti_populate()
     transaction.commit()

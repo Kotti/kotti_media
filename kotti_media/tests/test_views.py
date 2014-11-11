@@ -161,11 +161,11 @@ def test_options(db_session):
     assert options == default_player_options
 
     audio.annotations = {
-        "videoWidth": 100,
+        "startVolume": 0.5,
     }
 
     options = AudioView(audio, DummyRequest()).options
-    assert options["videoWidth"] == 100
+    assert options["startVolume"] == 0.5
 
 
 def test_player_options(db_session):
@@ -183,7 +183,7 @@ def test_player_options(db_session):
     post_request = DummyRequest()
     post_request.POST = {'save': 'save'}
     player_options = AudioView(audio, post_request).player_options()
-    assert player_options.body.find("Errors have been highlighted below") > -1
+    assert player_options.body.find("There was a problem with your submission") > -1  # noqa
 
     # test POST with all parameters
     post_request = DummyRequest()
@@ -192,5 +192,3 @@ def test_player_options(db_session):
     post_request.POST.update({'save': 'save'})
     player_options = AudioView(audio, post_request).player_options()
     assert player_options.body.find("edit_player_options_success = true") > -1
-
-    #import pdb; pdb.set_trace()
