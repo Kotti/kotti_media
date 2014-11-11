@@ -9,7 +9,6 @@ from colander import Float
 from colander import Integer
 from colander import MappingSchema
 from colander import SchemaNode
-from colander import String
 from deform import Button
 from deform import Form
 from deform import ValidationFailure
@@ -116,7 +115,7 @@ class BaseView(object):
         self.context = context
         self.request = request
 
-        use_fanstatic = get_settings()['kotti_media.use_fanstatic']
+        use_fanstatic = get_settings().get('kotti_media.use_fanstatic', True)
         if use_fanstatic and has_permission("edit", self.context, self.request):
             kotti_media_js.need()
 
@@ -154,7 +153,7 @@ class BaseView(object):
                  renderer='kotti_media:templates/script.pt')
     def script(self):
 
-        if get_settings()['kotti_media.use_fanstatic']:
+        if get_settings().get('kotti_media.use_fanstatic', True):
             mediaelementandplayer.need()
 
         return {"options": dumps(self.options)}
