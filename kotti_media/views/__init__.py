@@ -13,6 +13,7 @@ from deform import Button
 from deform import Form
 from deform import ValidationFailure
 from js.mediaelement import mediaelementandplayer
+from kotti import get_settings
 from kotti.resources import Document
 from kotti.security import has_permission
 from pyramid.i18n import TranslationStringFactory
@@ -29,15 +30,9 @@ _ = TranslationStringFactory('kotti_media')
 log = logging.getLogger(__name__)
 
 default_player_options = {
-    "defaultVideoWidth": 480,
-    "defaultVideoHeight": 270,
-    "videoWidth": -1,
-    "videoHeight": -1,
-    "audioWidth": 400,
-    "audioHeight": 30,
     "startVolume": 1.0,
     "loop": False,
-    "enableAutosize": True,
+    "enableAutosize": False,
     "features": [
         'playpause',
         'progress',
@@ -60,30 +55,6 @@ default_player_options = {
 
 class PlayerOptionsSchema(MappingSchema):
 
-    defaultVideoWidth = SchemaNode(
-        Integer(),
-        title=_("Default video width")
-    )
-    defaultVideoHeight = SchemaNode(
-        Integer(),
-        title=_("Default video height")
-    )
-    videoWidth = SchemaNode(
-        Integer(),
-        title=_("Video width")
-    )
-    videoHeight = SchemaNode(
-        Integer(),
-        title=_("Video height")
-    )
-    audioWidth = SchemaNode(
-        Integer(),
-        title=_("Audio width")
-    )
-    audioHeight = SchemaNode(
-        Integer(),
-        title=_("Audio height")
-    )
     startVolume = SchemaNode(
         Float(),
         title=_("Start volume")
@@ -144,7 +115,8 @@ class BaseView(object):
         self.context = context
         self.request = request
 
-        if has_permission("edit", self.context, self.request):
+        use_fanstatic = get_settings().get('kotti_media.use_fanstatic', True)
+        if use_fanstatic and has_permission("edit", self.context, self.request):
             kotti_media_js.need()
 
     def make_url(self, file_type, context=None):
@@ -181,7 +153,8 @@ class BaseView(object):
                  renderer='kotti_media:templates/script.pt')
     def script(self):
 
-        mediaelementandplayer.need()
+        if get_settings().get('kotti_media.use_fanstatic', True):
+            mediaelementandplayer.need()
 
         return {"options": dumps(self.options)}
 

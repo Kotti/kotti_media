@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-version = '0.5.2'
+version = '0.6'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,7 +25,7 @@ except IOError:
     CHANGES = ''
 
 install_requires = [
-    'Kotti>=0.8dev',
+    'Kotti>=0.10b1',
     'js.jquery_form',
     'js.mediaelement',
 ]

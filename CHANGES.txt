@@ -1,6 +1,21 @@
 CHANGES
 =======
 
+0.6 - 2014-11-11
+----------------
+
+- Migrate to Bootstrap 3.
+  This requires ``Kotti>=0.10b1`` and is a **backward incompatible change if you have customized any template**!
+
+- Remove the size settings from the player options.
+  They didn't work at all.
+  Players scale to their containers now.
+
+- Add a populator for development.
+
+- Add a setting to disable calls Fanstatic's need methods.
+  See README for the rationale.
+
 0.5.2 - 2014-11-10
 ------------------
 
