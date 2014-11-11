@@ -4,11 +4,12 @@
 
   <article metal:fill-slot="content" class="document-view content">
     <h1>${context.title}</h1>
-    <p class="description">${context.description}</p>
+    <p class="lead">${context.description}</p>
     <p tal:replace="structure context.body"></p>
     <audio tal:replace="api.render_view('element')" />
     <script tal:replace="api.render_view('script')" />
-    <div tal:condition="can_edit_player_options"
-         tal:content="api.render_template('kotti_media:templates/edit-player-options.pt')" />
+    <p tal:condition="can_edit_player_options"
+         tal:content="api.render_template('kotti_media:templates/edit-player-options.pt')">
+    </p>
   </article>
 </html>

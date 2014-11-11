@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+
+from kotti import TRUE_VALUES
 from kotti.resources import Image
 
 log = logging.getLogger(__name__)
@@ -8,6 +10,8 @@ log = logging.getLogger(__name__)
 
 def kotti_configure(settings):
 
+    settings['kotti_media.use_fanstatic'] = settings.get(
+        'kotti_media.use_fanstatic', 'true').lower() in TRUE_VALUES
     settings['pyramid.includes'] += ' kotti_media.views'
 
     settings['kotti.available_types'] += ' kotti_media.resources.Audio'

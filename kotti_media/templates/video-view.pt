@@ -5,18 +5,19 @@
   <article metal:fill-slot="content" class="document-view content">
     <h1>${context.title}</h1>
     <div class="row">
-      <div class="span6">
-        <p class="description">
+      <div class="col-md-6">
+        <p class="lead">
           ${context.description}
         </p>
         <p tal:replace="structure context.body"></p>
       </div>
-      <div class="span6">
+      <div class="col-md-6">
         <video tal:replace="api.render_view('element')" />
+        <p tal:condition="can_edit_player_options"
+             tal:content="api.render_template('kotti_media:templates/edit-player-options.pt')">
+        </p>
       </div>
     </div>
     <script tal:replace="api.render_view('script')" />
-    <div tal:condition="can_edit_player_options"
-         tal:content="api.render_template('kotti_media:templates/edit-player-options.pt')" />
   </article>
 </html>

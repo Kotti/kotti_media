@@ -4,7 +4,17 @@ CHANGES
 0.6dev
 ------
 
-- No changes yet.
+- Migrate to Bootstrap 3.
+  THIS REQUIRES ``Kotti>=0.10b1`` AND IS A BACKWARD INCOMPATIBLE CHANGE!
+
+- Remove the size settings from the player options.
+  They didn't work at all.
+  Players scale to their containers now.
+
+- Add a populator for development.
+
+- Add a setting to disable calls Fanstatic's need methods.
+  See README for the rationale.
 
 0.5.2 - 2014-11-10
 ------------------

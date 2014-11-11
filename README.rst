@@ -13,9 +13,11 @@ For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight pl
 Compatibility
 =============
 
-For Kotti >= 0.7 use the latest release of ``kotti_media``.
+For Kotti >= 0.10 use the latest release of ``kotti_media``.
 
-For Kotti < 0.7 use the ``kotti_video`` < 0.2.
+For Kotti < 0.10 use ``kotti_video`` < 0.6.
+
+For Kotti < 0.7 use ``kotti_video`` < 0.2.
 
 Setup
 =====
@@ -26,15 +28,21 @@ The line in your ``[app:main]`` section could then look like this::
 
   kotti.configurators = kotti_media.kotti_configure
 
-With this, you'll be able to add video and audio items in your site. Video and Audio content types are containers, into which you add specific media file types.
+With this, you'll be able to add video and audio items in your site.
+Video and Audio content types are containers, into which you add specific media file types.
 
-In your settings file, set kotti_media.asset_overrides to a list of asset specifications. This allows you to set up a directory in your package that will mirror kotti_media’s own and that allows you to override kotti_media’s templates on a case by case basis.
+In your settings file, set ``kotti_media.asset_overrides`` to a list of asset specifications.
+This allows you to set up a directory in your package that will mirror kotti_media’s own and that allows you to override kotti_media’s templates on a case by case basis.
+
+You can also set ``kotti_media.use_fanstatic`` to a *false value* (``false``, ``0``, ``no``, and so on) to disable the ``need()`` call.
+This is especially useful if your application is built with modern frontend development tools like Grunt, Gulp and Bower and you manage your Javascript dependencies with them.
+This setting is not needed if you completely disable Fanstatic for your application.
 
 Usage
 =====
 
-A standard way to use kotti_media is to first creates a Document in your content tree; this document will become the media section of your application. Then you can add childs to your media section by appending audio/video content to it. 
-``kotti_media`` comes with a handy `media_folder_view` that can be used to display your 'media section' Document (that is to display every media attached to it). 
+A standard way to use kotti_media is to first create a Document in your content tree; this document will become the media section of your application. Then you can add childs to your media section by appending audio/video content to it.
+``kotti_media`` comes with a handy `media_folder_view` that can be used to display your 'media section' Document (that is to display every media attached to it).
 
 Registration is done like this:
 
@@ -70,15 +78,13 @@ Testing
 
 |build status|_
 
-``kotti_media`` has 100% test coverage.
+``kotti_media`` aims for complete test coverage.
 Please make sure that you add tests for new features and that all tests pass before submitting pull requests.
 Running the test suite is as easy as running ``py.test`` from the source directory (you might need to run ``python setup.py dev`` to have all the test requirements installed in your virtualenv).
 
 
 .. _Find out more about Kotti: http://pypi.python.org/pypi/Kotti
 .. _Github repository: https://github.com/disko/kotti_media
-.. _gitflow: https://github.com/nvie/gitflow
-.. _A successful Git branching model: http://nvie.com/posts/a-successful-git-branching-model/
 .. _MediaElementJS: http://mediaelementjs.com/
 .. |build status| image:: https://secure.travis-ci.org/disko/kotti_media.png?branch=master
 .. _build status: http://travis-ci.org/disko/kotti_media
