@@ -2,6 +2,5 @@ recursive-include *.rst
 recursive-include *.txt
 recursive-include kotti_media *
 recursive-include kotti_media *
-recursive-exclude kotti_media/tests *
 recursive-exclude kotti_media .DS_Store
 recursive-exclude kotti_media *.pyc
