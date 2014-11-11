@@ -1,11 +1,11 @@
 CHANGES
 =======
 
-0.6dev
-------
+0.6 - 2014-11-11
+----------------
 
 - Migrate to Bootstrap 3.
-  THIS REQUIRES ``Kotti>=0.10b1`` AND IS A BACKWARD INCOMPATIBLE CHANGE!
+  This requires ``Kotti>=0.10b1`` and is a **backward incompatible change if you have customized any template**!
 
 - Remove the size settings from the player options.
   They didn't work at all.
