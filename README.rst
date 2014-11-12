@@ -84,7 +84,7 @@ Running the test suite is as easy as running ``py.test`` from the source directo
 
 
 .. _Find out more about Kotti: http://pypi.python.org/pypi/Kotti
-.. _Github repository: https://github.com/disko/kotti_media
+.. _Github repository: https://github.com/Kotti/kotti_media
 .. _MediaElementJS: http://mediaelementjs.com/
 .. |build status| image:: https://secure.travis-ci.org/disko/kotti_media.png?branch=master
-.. _build status: http://travis-ci.org/disko/kotti_media
+.. _build status: http://travis-ci.org/Kotti/kotti_media
