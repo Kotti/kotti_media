@@ -8,7 +8,7 @@ This is an extension to the Kotti CMS that allows you to add audio and video to 
 
 ``kotti_media`` uses `MediaElementJS`_ for video and audio views and thus supports native HTML5 playback on all platforms that support this.
 Each video can have multiple formats (MP4 (.h264 baseline profile), WebM, Ogg/Theora) to achieve this goal. For audio, supported formats include mp3 and wav.
-For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every resopurce can be played on every platform if all supported formats are uploaded.
+For older Platforms `MediaElementJS`_ includes a Adobe Flash / MS Silverlight plugin fallback, so that every resource can be played on every platform if all supported formats are uploaded.
 
 Compatibility
 =============
