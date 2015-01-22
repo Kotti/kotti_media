@@ -50,7 +50,7 @@ setup(
     keywords='video audio medialementjs kotti cms pylons pyramid',
     author='Andreas Kaiser',
     author_email='disko@binary-punks.com',
-    url='https://github.com/disko/kotti_media',
+    url='https://github.com/Kotti/kotti_media',
     license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
     packages=find_packages(exclude=[
         'ez_setup',
